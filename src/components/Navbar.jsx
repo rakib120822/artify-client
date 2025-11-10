@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 
 function Navbar() {
-  const user = null;
+  const user = {name:"rakib"};
   const links = (
     <>
       <li className="hover:text-red-700">
