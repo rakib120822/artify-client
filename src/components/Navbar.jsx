@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 
 function Navbar() {
-  const user = {name:"rakib"};
+  const user = null;
   const links = (
     <>
       <li className="hover:text-red-700">
@@ -97,12 +97,18 @@ function Navbar() {
           </div>
         ) : (
           <div className="flex gap-2">
-            <button className="btn btn-outline hover:bg-red-800 hover:text-white text-red-800  font-bold ">
+            <Link
+              to={"/auth/login"}
+              className="btn btn-outline hover:bg-red-800 hover:text-white text-red-800  font-bold "
+            >
               Login
-            </button>
-            <button className="btn  bg-red-800 text-white hover:text-red-800 hover:bg-white border border-red-800  font-bold ">
+            </Link>
+            <Link
+              to={"/auth/register"}
+              className="btn  bg-red-800 text-white hover:text-red-800 hover:bg-white border border-red-800  font-bold "
+            >
               Register
-            </button>
+            </Link>
           </div>
         )}
       </div>

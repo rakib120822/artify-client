@@ -7,6 +7,9 @@ import Gallery from "../pages/gallaryPage/Gallery";
 import Favorite from "../pages/favoritePage/Favorite";
 import AddArtwork from "../pages/addArtworkPage/AddArtwork";
 import DetailsPage from "../pages/detailsPage/DetailsPage";
+import PrivateRoutes from "../pages/privateroutes/PrivateRoutes";
+import Register from "../pages/authPages/Register";
+import Login from "../pages/authPages/Login";
 
 const router = createBrowserRouter([
   {
@@ -19,11 +22,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-artwork",
-        element: <AddArtwork />,
+        element: (
+          <PrivateRoutes>
+            <AddArtwork />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/my-gallery",
-        element: <Gallery />,
+        element: (
+          <PrivateRoutes>
+            <Gallery />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/all-artworks",
@@ -31,14 +42,31 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-favorites",
-        element: <Favorite />,
+        element: (
+          <PrivateRoutes>
+            <Favorite />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/details/:id",
-        element: <DetailsPage />,
+        element: (
+          <PrivateRoutes>
+            <DetailsPage />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/auth/login",
+        element: <Login />,
+      },
+      {
+        path: "/auth/register",
+        element: <Register />,
       },
     ],
   },
+
   {
     path: "/*",
     element: <Errorpage />,
