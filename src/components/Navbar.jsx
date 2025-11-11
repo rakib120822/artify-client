@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 function Navbar() {
-  const { user, loading } = useAuth();
+  const { user, loading, logOut, setUser } = useAuth();
   const links = (
     <>
       <li className="hover:text-red-700">
@@ -29,6 +30,12 @@ function Navbar() {
       )}
     </>
   );
+
+  const handleLogOut = () => {
+    logOut().then(() => toast.success("Log Out successful"));
+    setUser(null);
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-sm px-5">
       <div className="navbar-start">
@@ -92,9 +99,28 @@ function Navbar() {
                   {user?.email}
                 </a>
               </li>
+              <li>
+                <Link
+                  to={"/update/profile"}
+                  className="justify-between hover:text-red-800  font-bold"
+                >
+                  <span className="flex gap-1 items-center">
+                    <img
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-sharp/24/1A1A1A/settings.png"
+                      alt="settings"
+                    />
+                    Settings
+                  </span>
+                </Link>
+              </li>
 
               <li>
-                <button className="  hover:text-red-800  font-bold ">
+                <button
+                  onClick={handleLogOut}
+                  className="btn  bg-red-800 text-white  font-bold mt-1"
+                >
                   Logout
                 </button>
               </li>

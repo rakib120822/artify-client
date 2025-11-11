@@ -10,6 +10,7 @@ import DetailsPage from "../pages/detailsPage/DetailsPage";
 import PrivateRoutes from "../pages/privateroutes/PrivateRoutes";
 import Register from "../pages/authPages/Register";
 import Login from "../pages/authPages/Login";
+import UpdateProfile from "../pages/updateProfile/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <AddArtwork />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/update/profile",
+        element: (
+          <PrivateRoutes>
+            <UpdateProfile />
           </PrivateRoutes>
         ),
       },

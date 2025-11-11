@@ -4,6 +4,8 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import app from "../../firebase/firebase.config";
@@ -12,7 +14,7 @@ const auth = getAuth(app);
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState();
-   const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const register = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -23,7 +25,14 @@ function AuthProvider({ children }) {
       photoURL: photoURL,
     });
   };
-  
+
+  const login = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const logOut = () => {
+    return signOut(auth);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
@@ -36,7 +45,16 @@ function AuthProvider({ children }) {
     };
   }, []);
 
-  const userInfo = { register, user, setUser, updateInfo,loading,setLoading };
+  const userInfo = {
+    register,
+    user,
+    setUser,
+    updateInfo,
+    loading,
+    setLoading,
+    login,
+    logOut,
+  };
 
   return <AuthContext value={userInfo}>{children}</AuthContext>;
 }
