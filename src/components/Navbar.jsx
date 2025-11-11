@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 function Navbar() {
-  const user = null;
+  const { user, loading } = useAuth();
   const links = (
     <>
       <li className="hover:text-red-700">
@@ -64,7 +65,9 @@ function Navbar() {
         <ul className="flex gap-5  px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        {user ? (
+        {loading ? (
+          <span className="loading loading-spinner loading-xl text-red-800"></span>
+        ) : user ? (
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -72,10 +75,7 @@ function Navbar() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+                <img alt="Tailwind CSS Navbar component" src={user.photoURL} />
               </div>
             </div>
             <ul
@@ -84,7 +84,12 @@ function Navbar() {
             >
               <li>
                 <a className="justify-between hover:text-red-800  font-bold">
-                  {user?.name}
+                  {user?.displayName}
+                </a>
+              </li>
+              <li>
+                <a className="justify-between hover:text-red-800  font-bold">
+                  {user?.email}
                 </a>
               </li>
 

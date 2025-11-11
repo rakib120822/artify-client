@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 function Register() {
-  const { register, setUser, updateInfo,user } = useAuth();
+  const { register, setUser, updateInfo, user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const validatePassword = (password) => {
     // Check minimum length
@@ -45,12 +47,12 @@ function Register() {
           });
         });
         setUser(res.user);
+        navigate(location.state);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => toast.error(err.message));
   };
 
-
-  console.log(user)
+  console.log(user);
 
   return (
     <div className="hero  my-10">
