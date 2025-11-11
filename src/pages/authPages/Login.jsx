@@ -2,12 +2,12 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 function Login() {
-  const { login, setUser,setLoading } = useAuth();
+  const { login, setUser, setLoading, googleLogin } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ function Login() {
           icon: "success",
           draggable: true,
         });
-        setLoading(false)
+        setLoading(false);
       })
       .catch(() => {
         Swal.fire({
@@ -31,6 +31,25 @@ function Login() {
           title: "Oops...",
           text: "Please check your email and password",
         });
+        setLoading(false);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((res) => {
+        console.log(res.user);
+        setUser(res.user);
+        Swal.fire({
+          title: "Account Created!",
+          icon: "success",
+          draggable: true,
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
       });
   };
 
@@ -79,7 +98,10 @@ function Login() {
           </form>
           <div className="divider">OR</div>
           {/* Google */}
-          <button className="btn bg-white text-black border-[#e5e5e5]">
+          <button
+            onClick={handleGoogleLogin}
+            className="btn bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"

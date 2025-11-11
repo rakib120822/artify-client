@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 function Register() {
-  const { register, setUser, updateInfo, setLoading } = useAuth();
+  const { register, setUser, updateInfo, setLoading, googleLogin } = useAuth();
 
   const validatePassword = (password) => {
     // Check minimum length
@@ -37,6 +37,7 @@ function Register() {
 
     register(email, password)
       .then((res) => {
+        setUser(res.user);
         updateInfo(name, photoUrl).then(() => {
           Swal.fire({
             title: "Account Created!",
@@ -44,7 +45,24 @@ function Register() {
             draggable: true,
           });
         });
+
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((res) => {
         setUser(res.user);
+        Swal.fire({
+          title: "Account Created!",
+          icon: "success",
+          draggable: true,
+        });
         setLoading(false);
       })
       .catch((err) => toast.error(err.message));
@@ -114,7 +132,10 @@ function Register() {
           </form>
           <div className="divider">OR</div>
           {/* Google */}
-          <button className="btn bg-white text-black border-[#e5e5e5]">
+          <button
+            onClick={handleGoogleLogin}
+            className="btn bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"

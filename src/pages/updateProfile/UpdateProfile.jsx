@@ -3,7 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
 function UpdateProfile() {
-  const { user, updateInfo, setLoading } = useAuth();
+  const { user, setUser, updateInfo, setLoading } = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -11,10 +11,14 @@ function UpdateProfile() {
     setLoading(true);
     updateInfo(name, photoURL)
       .then(() => {
+        setUser({ ...user, displayName: name, photoURL: photoURL });
         toast.success("update successful! ");
         setLoading(false);
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false)
+      });
   };
   return (
     <div className="w-11/12 mx-auto my-2">

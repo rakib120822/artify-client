@@ -82,7 +82,7 @@ function Navbar() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user.photoURL} />
+                <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
               </div>
             </div>
             <ul
@@ -91,12 +91,12 @@ function Navbar() {
             >
               <li>
                 <a className="justify-between hover:text-red-800  font-bold">
-                  {user?.displayName}
+                  {user?.displayName || ""}
                 </a>
               </li>
               <li>
                 <a className="justify-between hover:text-red-800  font-bold">
-                  {user?.email}
+                  {user?.email || ""}
                 </a>
               </li>
               <li>
