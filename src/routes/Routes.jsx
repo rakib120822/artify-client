@@ -6,6 +6,7 @@ import ExploreArtworks from "../pages/explorePage/ExploreArtworks";
 import Gallery from "../pages/gallaryPage/Gallery";
 import Favorite from "../pages/favoritePage/Favorite";
 import AddArtwork from "../pages/addArtworkPage/AddArtwork";
+import DetailsPage from "../pages/detailsPage/DetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/my-favorites",
         element: <Favorite />,
+      },
+      {
+        path: "/details/:id",
+        element: <DetailsPage />,
       },
     ],
   },
