@@ -1,9 +1,11 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 function AddArtwork() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -39,6 +41,7 @@ function AddArtwork() {
       });
 
       toast.success("Added new artwork!");
+      navigate("/my-gallery");
     } catch (err) {
       toast.error(err.message);
     }

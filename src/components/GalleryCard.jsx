@@ -1,9 +1,35 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-function GalleryCard({ artwork }) {
+import Swal from "sweetalert2";
+
+function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
   const navigate = useNavigate();
-  
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await fetch(`http://localhost:3000/artwork/${artwork?._id}`, {
+          method: "DELETE",
+        });
+        setMyArtWorks(
+          myArtWorks.filter((myArtWork) => myArtWork._id != artwork._id)
+        );
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
   return (
     <div className="card bg-base-100 shadow-md  border border-[#991B1B] hover:scale-106 transition delay-300 ease-in-out">
       <figure className="h-[300px]">
@@ -27,7 +53,10 @@ function GalleryCard({ artwork }) {
           >
             Update
           </button>
-          <button onClick={handleDelete} className="btn btn-outline bg-red-800 text-white hover:text-red-800 hover:bg-white border border-red-800  font-bold">
+          <button
+            onClick={handleDelete}
+            className="btn btn-outline bg-red-800 text-white hover:text-red-800 hover:bg-white border border-red-800  font-bold"
+          >
             Delete
           </button>
         </div>

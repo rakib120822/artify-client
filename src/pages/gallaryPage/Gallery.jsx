@@ -20,7 +20,7 @@ function Gallery() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5  ">
         {myArtWorks?.map((artwork) => (
-          <GalleryCard key={artwork._id} artwork={artwork} />
+          <GalleryCard key={artwork._id} artwork={artwork} setMyArtWorks={setMyArtWorks} myArtWorks={myArtWorks} />
         ))}
       </div>
     </section>
