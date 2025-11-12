@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import Card from "../../components/Card";
 import LogoCard from "../../components/LogoCard";
 import Marquee from "react-fast-marquee";
 
 function Home() {
+  const latestArtworks = useLoaderData();
+  
   return (
     <div>
       {/* carousel */}
@@ -72,22 +74,19 @@ function Home() {
           <h1 className="text-center text-4xl font-extrabold mb-[50px]">
             Featured <span className="text-red-800">Artworks</span>
           </h1>
-          <section className="grid grid-cols-3 gap-5">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {
+            latestArtworks.map(artwork=> <Card key={artwork._id} artwork={artwork}/>)
+          }
           </section>
         </section>
 
         {/* top_artist_section */}
-        <section className="my-20">
+        <section className="my-20  ">
           <h1 className="text-center text-4xl font-extrabold mb-[50px]">
             Top <span className="text-red-800">Artists </span>
           </h1>
-          <div className="carousel carousel-end rounded-box">
+          <div className="carousel carousel-end rounded-box ">
             <div className="carousel-item">
               <img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRASHxtKawgAwcM8sO5UrX6xdGjR-y8E37DaQ&s"

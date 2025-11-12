@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
-function AddArtwork() {
+function UpdateArtWork() {
+  const { id } = useParams();
   const { user } = useAuth();
+  const [artWork, setArtWork] = useState();
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -30,19 +35,26 @@ function AddArtwork() {
     };
 
     try {
-      await fetch("http://localhost:3000/artworks", {
-        method: "POST",
+      await fetch(`http://localhost:3000/artwork/${artWork?._id}`, {
+        method: "PUT",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify(newArtWork),
       });
 
-      toast.success("Added new artwork!");
+      toast.success("Update Successful!");
+      navigate("/my-gallery");
     } catch (err) {
       toast.error(err.message);
     }
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/artwork/${id}`)
+      .then((res) => res.json())
+      .then((data) => setArtWork(data));
+  }, [id]);
 
   return (
     <div>
@@ -74,6 +86,7 @@ function AddArtwork() {
                   className="input w-full"
                   placeholder="title"
                   name="title"
+                  defaultValue={artWork?.title}
                 />
                 <label className="label">Photo URL</label>
                 <input
@@ -82,6 +95,7 @@ function AddArtwork() {
                   className="input w-full"
                   placeholder="photo URL"
                   name="photoURL"
+                  defaultValue={artWork?.image}
                 />
                 <label className="label">Description</label>
                 <textarea
@@ -89,6 +103,7 @@ function AddArtwork() {
                   className="textarea h-24 w-full"
                   placeholder="description"
                   name="description"
+                  defaultValue={artWork?.description}
                 ></textarea>
                 <div className="flex gap-2">
                   <div>
@@ -99,6 +114,7 @@ function AddArtwork() {
                       placeholder="Category"
                       required
                       name="category"
+                      defaultValue={artWork?.category}
                     />
                   </div>
                   <div>
@@ -109,6 +125,7 @@ function AddArtwork() {
                       placeholder="Medium"
                       required
                       name="medium"
+                      defaultValue={artWork?.medium}
                     />
                   </div>
                 </div>
@@ -119,6 +136,7 @@ function AddArtwork() {
                   className="input w-full"
                   placeholder="visibility"
                   name="visibility"
+                  defaultValue={artWork?.visibility}
                 />
                 <label className="label">Price</label>
                 <input
@@ -127,9 +145,10 @@ function AddArtwork() {
                   className="input w-full"
                   placeholder="Price"
                   name="price"
+                  defaultValue={artWork?.price}
                 />
                 <button className="btn bg-red-800 text-white mt-4">
-                  Add My ArtWork
+                  update
                 </button>
               </fieldset>
             </form>
@@ -140,4 +159,4 @@ function AddArtwork() {
   );
 }
 
-export default AddArtwork;
+export default UpdateArtWork;

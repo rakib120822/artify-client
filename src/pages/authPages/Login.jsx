@@ -46,6 +46,7 @@ function Login() {
           draggable: true,
         });
         setLoading(false);
+        navigate(location?.state || "/");
       })
       .catch((err) => {
         toast.error(err.message);

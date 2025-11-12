@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 function Register() {
   const { register, setUser, updateInfo, setLoading, googleLogin } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const validatePassword = (password) => {
     // Check minimum length
@@ -47,6 +49,7 @@ function Register() {
         });
 
         setLoading(false);
+        navigate(location?.state || "/");
       })
       .catch((err) => {
         toast.error(err.message);
@@ -64,12 +67,13 @@ function Register() {
           draggable: true,
         });
         setLoading(false);
+        navigate(location?.state || "/");
       })
       .catch((err) => toast.error(err.message));
   };
 
   return (
-    <div className="hero  my-10">
+    <div className="hero min-h-screen my-10">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-xl">
         <div className="card-body">
           <form onSubmit={handleSubmit}>

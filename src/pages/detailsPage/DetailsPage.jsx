@@ -1,20 +1,22 @@
 import React from "react";
+import { useLoaderData } from "react-router";
 
 function DetailsPage() {
+  const artWork = useLoaderData();
+  console.log(artWork);
   return (
     <div className="w-11/12 mx-auto my-[50px]">
       <div className="card lg:card-side bg-base-100 shadow-sm">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp"
-            alt="Album"
-          />
+        <figure className="max-w-[300px] h-[300px]">
+          <img src={artWork?.image} alt="Album" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">title</h2>
-          <p>artist name</p>
-          <p>description</p>
-          <div className="badge badge-outline text-[#991B1B]">Error</div>
+          <h2 className="card-title">{artWork?.title}</h2>
+          <p>Artist : {artWork?.artist_name}</p>
+          <p>{artWork?.description}</p>
+          <div className="badge badge-outline text-[#991B1B]">
+            {artWork?.medium}
+          </div>
 
           <div className="card-actions justify-end">
             <button>
@@ -39,14 +41,11 @@ function DetailsPage() {
 
       <div className="card lg:card-side bg-base-100 shadow-sm my-20">
         <div className="card-body">
-          <h2 className="card-title">name</h2>
-          <p>total artwork : 44</p>
+          <h2 className="card-title">{artWork?.artist_name}</h2>
+          <p>Followers : {artWork?.followers}</p>
         </div>
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp"
-            alt="Album"
-          />
+        <figure className="max-w-[300px] h-[300px]">
+          <img src={artWork?.artist_image} alt="Album" />
         </figure>
       </div>
     </div>
