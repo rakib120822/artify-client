@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Card from "../../components/Card";
+
 import { useLoaderData } from "react-router";
+import ExploreCard from "../../components/ExploreCard";
 
 function ExploreArtworks() {
   const artworksData = useLoaderData();
@@ -16,8 +17,8 @@ function ExploreArtworks() {
 
   return (
     <section className="w-11/12 mx-auto my-40">
-      <div className="flex justify-between items-center mb-20">
-        <h1 className="text-4xl font-extrabold ">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-20">
+        <h1 className="text-4xl font-extrabold mb-5 md:mb-0">
           All <span className="text-red-800">ArtWorks</span>
         </h1>
         <form onSubmit={handleSearch}>
@@ -37,7 +38,7 @@ function ExploreArtworks() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5  ">
         {artWorks.map((artwork) => (
-          <Card key={artwork._id} artwork={artwork} />
+          <ExploreCard key={artwork._id} artwork={artwork} />
         ))}
       </div>
     </section>

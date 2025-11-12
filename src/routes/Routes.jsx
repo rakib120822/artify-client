@@ -12,11 +12,16 @@ import Register from "../pages/authPages/Register";
 import Login from "../pages/authPages/Login";
 import UpdateProfile from "../pages/updateProfile/UpdateProfile";
 import UpdateArtWork from "../pages/updateArtwork/UpdateArtWork";
+import FavoriteProvider from "../context/favorite/FavoriteProvider";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (
+      <FavoriteProvider>
+        <Root />
+      </FavoriteProvider>
+    ),
     children: [
       {
         index: true,

@@ -36,6 +36,10 @@ function Navbar() {
     setUser(null);
   };
 
+  const handleTheme = (e) => {
+    console.log(e);
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-sm px-5">
       <div className="navbar-start">
@@ -72,6 +76,7 @@ function Navbar() {
         <ul className="flex gap-5  px-1">{links}</ul>
       </div>
       <div className="navbar-end">
+        <input type="checkbox" onClick={handleTheme} className="toggle mr-5" />
         {loading ? (
           <span className="loading loading-spinner loading-xl text-red-800"></span>
         ) : user ? (
