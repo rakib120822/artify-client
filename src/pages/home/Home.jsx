@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useLoaderData } from "react-router";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
 import Card from "../../components/Card";
 import LogoCard from "../../components/LogoCard";
 import Marquee from "react-fast-marquee";
@@ -11,7 +11,25 @@ import image4 from "../../assets/4.png";
 import image5 from "../../assets/5.png";
 
 function Home() {
-  const latestArtworks = useLoaderData();
+  const [latestArtworks, setLatestArtworks] = useState();
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://artify-server-xi.vercel.app/artworks/latest")
+      .then((res) => res.json())
+      .then((data) => {
+        setLatestArtworks(data);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <span className="loading loading-bars loading-xl text-red-800"></span>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -91,7 +109,7 @@ function Home() {
             Featured <span className="text-red-800">Artworks</span>
           </h1>
           <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {latestArtworks.map((artwork) => (
+            {latestArtworks?.map((artwork) => (
               <Card key={artwork._id} artwork={artwork} />
             ))}
           </section>

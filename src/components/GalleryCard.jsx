@@ -16,7 +16,7 @@ function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await fetch(`http://localhost:3000/artwork/${artwork?._id}`, {
+        await fetch(`https://artify-server-xi.vercel.app/artwork/${artwork?._id}`, {
           method: "DELETE",
         });
         setMyArtWorks(

@@ -15,7 +15,7 @@ function DetailsPage() {
 
   const handleLiked = async () => {
     const result = await fetch(
-      `http://localhost:3000/artwork/like/${id}?email=${user?.email}`,
+      `https://artify-server-xi.vercel.app/artwork/like/${id}?email=${user?.email}`,
       {
         method: "PUT",
         headers: {
@@ -37,7 +37,7 @@ function DetailsPage() {
 
   const handleFavorite = async () => {
     const result = await fetch(
-      `http://localhost:3000/favorite/${artWork?._id}?email=${user?.email}`,
+      `https://artify-server-xi.vercel.app/favorite/${artWork?._id}?email=${user?.email}`,
       {
         method: "POST",
         headers: {
@@ -55,7 +55,7 @@ function DetailsPage() {
 
   const handleFavoriteRemove = async () => {
     const result = await fetch(
-      `http://localhost:3000/favorite/${artWork?._id}?email=${user?.email}`,
+      `https://artify-server-xi.vercel.app/favorite/${artWork?._id}?email=${user?.email}`,
       {
         method: "DELETE",
         headers: {
@@ -72,7 +72,7 @@ function DetailsPage() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/artwork/${id}`, {
+    fetch(`https://artify-server-xi.vercel.app/artwork/${id}`, {
       headers: {
         authorization: `Bearer ${user?.accessToken}`,
       },
@@ -85,7 +85,7 @@ function DetailsPage() {
   }, [id, user]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/user/likes?email=${user?.email}`)
+    fetch(`https://artify-server-xi.vercel.app/user/likes?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setIsliked(data[0].likes.includes(id));
@@ -93,7 +93,7 @@ function DetailsPage() {
   }, [id, user]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/user/favorite-artworks?email=${user?.email}`, {
+    fetch(`https://artify-server-xi.vercel.app/user/favorite-artworks?email=${user?.email}`, {
       headers: {
         authorization: `Bearer ${user?.accessToken}`,
       },

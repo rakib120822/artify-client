@@ -105,10 +105,10 @@ function Navbar() {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
+              <Tooltip id="my-tooltip" />
               <div className="w-10 rounded-full">
                 <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
               </div>
-              <Tooltip id="my-tooltip" />
             </div>
             <ul
               tabIndex="-1"

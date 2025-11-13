@@ -21,10 +21,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: async () => {
-          const res = await fetch("http://localhost:3000/artworks/latest");
-          return res.json();
-        },
+        
       },
       {
         path: "/add-artwork",
@@ -61,10 +58,7 @@ const router = createBrowserRouter([
       {
         path: "/all-artworks",
         element: <ExploreArtworks />,
-        loader: async () => {
-          const res = await fetch("http://localhost:3000/artworks");
-          return res.json();
-        },
+        
       },
       {
         path: "/my-favorites",

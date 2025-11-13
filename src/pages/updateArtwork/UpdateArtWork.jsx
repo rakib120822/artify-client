@@ -35,7 +35,7 @@ function UpdateArtWork() {
     };
 
     try {
-      await fetch(`http://localhost:3000/artwork/${artWork?._id}`, {
+      await fetch(`https://artify-server-xi.vercel.app/artwork/${artWork?._id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -52,14 +52,15 @@ function UpdateArtWork() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/artwork/${id}`,{
-      headers:{
-        authorization: `Bearer ${user?.accessToken}`
-      }
+     if (!user) return;
+    fetch(`https://artify-server-xi.vercel.app/artwork/${id}`, {
+      headers: {
+        authorization: `Bearer ${user?.accessToken}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => setArtWork(data));
-  }, [id,user]);
+  }, [id, user]);
 
   return (
     <div>

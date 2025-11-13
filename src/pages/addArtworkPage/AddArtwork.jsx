@@ -32,7 +32,7 @@ function AddArtwork() {
     };
 
     try {
-      await fetch("http://localhost:3000/artworks", {
+      await fetch("https://artify-server-xi.vercel.app/artworks", {
         method: "POST",
         headers: {
           "content-type": "application/json",
