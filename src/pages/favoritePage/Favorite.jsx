@@ -1,17 +1,21 @@
-import React, { use, useEffect } from "react";
+import React, {  useEffect, useState } from "react";
 import Card from "../../components/Card";
 import useAuth from "../../hooks/useAuth";
-import favoriteContext from "../../context/favorite/FavoriteContext";
+
 
 function Favorite() {
-  const { favorites, setFavorites } = use(favoriteContext);
+  const [ favorites, setFavorites ] = useState();
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/favorite-artworks?email=${user?.email}`)
+    fetch(`http://localhost:3000/favorite-artworks?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setFavorites(data)
+        setFavorites(data);
       });
   }, [user, setFavorites]);
 

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 function Navbar() {
   const { user, loading, logOut, setUser } = useAuth();
@@ -31,13 +33,21 @@ function Navbar() {
     </>
   );
 
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const handleLogOut = () => {
     logOut().then(() => toast.success("Log Out successful"));
     setUser(null);
   };
 
-  const handleTheme = (e) => {
-    console.log(e);
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
   };
 
   return (
@@ -76,11 +86,20 @@ function Navbar() {
         <ul className="flex gap-5  px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <input type="checkbox" onClick={handleTheme} className="toggle mr-5" />
+        <input
+          type="checkbox"
+          onClick={(e) => handleTheme(e.target.checked)}
+          className="toggle mr-5"
+          defaultChecked={localStorage.getItem("theme")}
+        />
         {loading ? (
           <span className="loading loading-spinner loading-xl text-red-800"></span>
         ) : user ? (
-          <div className="dropdown dropdown-end">
+          <div
+            className="dropdown dropdown-end"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={`${user?.displayName}`}
+          >
             <div
               tabIndex={0}
               role="button"
@@ -89,6 +108,7 @@ function Navbar() {
               <div className="w-10 rounded-full">
                 <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
               </div>
+              <Tooltip id="my-tooltip" />
             </div>
             <ul
               tabIndex="-1"

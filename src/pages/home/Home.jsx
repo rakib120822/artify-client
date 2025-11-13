@@ -3,14 +3,18 @@ import { Link, useLoaderData } from "react-router";
 import Card from "../../components/Card";
 import LogoCard from "../../components/LogoCard";
 import Marquee from "react-fast-marquee";
+import { Typewriter } from "react-simple-typewriter";
+
 
 function Home() {
   const latestArtworks = useLoaderData();
   
   return (
     <div>
+      <header>
+        <h1 className="text-4xl font-extrabold text-center my-10"><span className="text-red-800">ART</span>IFY – <Typewriter loop={true} cursor={true}  words={["A CREATIVE ARTWORK SHOWCASE PLATFORM"]}/></h1>
       {/* carousel */}
-      <header className="carousel w-full">
+        <div className="carousel w-full">
         <div id="slide1" className="carousel-item relative w-full h-[400px]">
           <img
             src="https://nordicwallart.com/cdn/shop/products/Hca0610fd385a4f4e9a540c904b13d9e0R.jpg"
@@ -67,6 +71,7 @@ function Home() {
             </a>
           </div>
         </div>
+      </div>
       </header>
       <main className="w-11/12  mx-auto my-[50px] ">
         {/* card_section */}

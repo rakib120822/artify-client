@@ -39,6 +39,7 @@ function UpdateArtWork() {
         method: "PUT",
         headers: {
           "content-type": "application/json",
+          authorization: `Bearer ${user?.accessToken}`
         },
         body: JSON.stringify(newArtWork),
       });

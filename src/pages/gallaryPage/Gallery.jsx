@@ -7,7 +7,11 @@ function Gallery() {
   const [myArtWorks, setMyArtWorks] = useState();
 
   useEffect( () => {
-   fetch(`http://localhost:3000/my-artworks?email=${user?.email}`)
+   fetch(`http://localhost:3000/my-artworks?email=${user?.email}`,{
+    headers: {
+      authorization: `Bearer ${user?.accessToken}`
+    }
+   })
       .then((res) => res.json())
       .then((data) => setMyArtWorks(data));
   }, [user]);

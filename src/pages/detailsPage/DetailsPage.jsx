@@ -1,52 +1,56 @@
-import React, { use, useState } from "react";
-import { useLoaderData, useNavigate } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
-import favoriteContext from "../../context/favorite/FavoriteContext";
+
 function DetailsPage() {
-  const artWork = useLoaderData();
-  const [isLiked, setIsliked] = useState(false);
-  const [likes, setLikes] = useState(artWork?.like);
-  
+  const [artWork, setArtWork] = useState();
+  const [isLiked, setIsliked] = useState();
+
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { favorites, setFavorites,isFavorite, setIsFavorite } = use(favoriteContext);
+  const { id } = useParams();
+  const [likes, setLikes] = useState(artWork?.like);
+  const [isFavorite, setIsFavorite] = useState();
 
   const handleLiked = async () => {
-    try {
-      if (!user?.email) return;
+    const result = await fetch(
+      `http://localhost:3000/artwork/like/${id}?email=${user?.email}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${user?.accessToken}`,
+        },
+      }
+    ).then((res) => res.json());
 
-      const result = await fetch(
-        `http://localhost:3000/artwork/like/${artWork?._id}?email=${user?.email}`,
-        { method: "PUT" }
-      ).then((res) => res.json());
-
-      // Check if this artwork is in the user's likes
-      const check = result.result.likes.some(
-        (id) => id.toString() === artWork._id.toString()
-      );
-
-      setIsliked(check);
-      setLikes(result.artworkObject.like); // update like count
-    } catch (error) {
-      toast.error("Failed to like artwork:", error);
+    if (result.message === "Liked") {
+      setLikes(likes + 1);
+      toast.success("Liked");
+      setIsliked(true);
+    } else {
+      setLikes(likes - 1);
+      setIsliked(false);
+      toast.error("Unliked");
     }
   };
 
   const handleFavorite = async () => {
-    await fetch(
+    const result = await fetch(
       `http://localhost:3000/favorite/${artWork?._id}?email=${user?.email}`,
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          authorization: `Bearer ${user?.accessToken}`,
         },
       }
     ).then((res) => res.json());
-    setIsFavorite(!isFavorite);
-    toast.success("Added to the favorite list");
-    setFavorites([...favorites, { userEmail: user.email, id: artWork?._id }]);
-    navigate("/my-favorites");
+    if (result.insertedId) {
+      toast.success("Added to the favorite List");
+      setIsFavorite(true);
+      navigate("/my-favorites");
+    }
   };
 
   const handleFavoriteRemove = async () => {
@@ -54,15 +58,51 @@ function DetailsPage() {
       `http://localhost:3000/favorite/${artWork?._id}?email=${user?.email}`,
       {
         method: "DELETE",
+        headers: {
+          authorization: `Bearer ${user?.accessToken}`,
+        },
       }
     ).then((res) => res.json());
-    setIsFavorite(!isFavorite);
+
     if (result.deletedCount) {
-      toast.success("Remove from the favorite list");
-      setFavorites(favorites.filter((favorite) => favorite.id != artWork?._id));
+      setIsFavorite(false);
+      toast.success("Removed From Favorite List");
       navigate("/my-favorites");
     }
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/artwork/${id}`, {
+      headers: {
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLikes(data.like);
+        setArtWork(data);
+      });
+  }, [id, user]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/user/likes?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setIsliked(data[0].likes.includes(id));
+      });
+  }, [id, user]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/user/favorite-artworks?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setIsFavorite(data.some((fav) => fav.id == id));
+      });
+  }, [user, id]);
 
   return (
     <div className="w-11/12 mx-auto my-[50px]">
@@ -74,13 +114,17 @@ function DetailsPage() {
           <h2 className="card-title">{artWork?.title}</h2>
           <p>Artist : {artWork?.artist_name}</p>
           <p>{artWork?.description}</p>
+          <p>Price : {artWork?.price}$</p>
           <div className="badge badge-outline text-[#991B1B]">
             {artWork?.medium}
           </div>
 
           <div className="card-actions justify-end">
-            <button onClick={handleLiked} className="flex items-center gap-2">
-              <span className="text-2xl ">{likes}</span>
+            <button
+              onClick={() => handleLiked()}
+              className="flex items-center gap-2"
+            >
+              <span className="text-2xl">{likes}</span>
               {isLiked ? (
                 <img
                   width="40"

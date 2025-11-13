@@ -36,6 +36,7 @@ function AddArtwork() {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          authorization: `Bearer ${user?.accessToken}`
         },
         body: JSON.stringify(newArtWork),
       });

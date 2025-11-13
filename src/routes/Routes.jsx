@@ -86,10 +86,7 @@ const router = createBrowserRouter([
             <DetailsPage />
           </PrivateRoutes>
         ),
-        loader: async ({ params }) => {
-          const res = await fetch(`http://localhost:3000/artwork/${params.id}`);
-          return res.json();
-        },
+        
       },
       {
         path: "/auth/login",
