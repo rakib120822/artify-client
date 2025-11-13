@@ -62,6 +62,7 @@ function AddArtwork() {
                   className="input w-full"
                   placeholder="name"
                   value={user?.displayName}
+                  readOnly
                 />
                 <label className="label">User Email</label>
                 <input
@@ -70,6 +71,7 @@ function AddArtwork() {
                   className="input w-full"
                   placeholder="email"
                   value={user?.email}
+                  readOnly
                 />
                 <label className="label">Title</label>
                 <input

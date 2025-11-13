@@ -39,7 +39,7 @@ function UpdateArtWork() {
         method: "PUT",
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer ${user?.accessToken}`
+          authorization: `Bearer ${user?.accessToken}`,
         },
         body: JSON.stringify(newArtWork),
       });
@@ -52,10 +52,14 @@ function UpdateArtWork() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/artwork/${id}`)
+    fetch(`http://localhost:3000/artwork/${id}`,{
+      headers:{
+        authorization: `Bearer ${user?.accessToken}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => setArtWork(data));
-  }, [id]);
+  }, [id,user]);
 
   return (
     <div>
@@ -71,6 +75,7 @@ function UpdateArtWork() {
                   className="input w-full"
                   placeholder="name"
                   value={user?.displayName}
+                  readOnly
                 />
                 <label className="label">User Email</label>
                 <input
@@ -79,6 +84,7 @@ function UpdateArtWork() {
                   className="input w-full"
                   placeholder="email"
                   value={user?.email}
+                  readOnly
                 />
                 <label className="label">Title</label>
                 <input

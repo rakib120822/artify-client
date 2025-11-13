@@ -90,7 +90,7 @@ function Navbar() {
           type="checkbox"
           onClick={(e) => handleTheme(e.target.checked)}
           className="toggle mr-5"
-          defaultChecked={localStorage.getItem("theme")}
+          checked={theme === "dark"}
         />
         {loading ? (
           <span className="loading loading-spinner loading-xl text-red-800"></span>

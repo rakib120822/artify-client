@@ -4,74 +4,85 @@ import Card from "../../components/Card";
 import LogoCard from "../../components/LogoCard";
 import Marquee from "react-fast-marquee";
 import { Typewriter } from "react-simple-typewriter";
-
+import image1 from "../../assets/1.png";
+import image2 from "../../assets/2.png";
+import image3 from "../../assets/3.png";
+import image4 from "../../assets/4.png";
+import image5 from "../../assets/5.png";
 
 function Home() {
   const latestArtworks = useLoaderData();
-  
+
   return (
     <div>
       <header>
-        <h1 className="text-4xl font-extrabold text-center my-10"><span className="text-red-800">ART</span>IFY – <Typewriter loop={true} cursor={true}  words={["A CREATIVE ARTWORK SHOWCASE PLATFORM"]}/></h1>
-      {/* carousel */}
+        <h1 className="text-4xl font-extrabold text-center my-10">
+          <span className="text-red-800">ART</span>IFY –{" "}
+          <Typewriter
+            loop={true}
+            cursor={true}
+            words={["A CREATIVE ARTWORK SHOWCASE PLATFORM"]}
+          />
+        </h1>
+        {/* carousel */}
         <div className="carousel w-full">
-        <div id="slide1" className="carousel-item relative w-full h-[400px]">
-          <img
-            src="https://nordicwallart.com/cdn/shop/products/Hca0610fd385a4f4e9a540c904b13d9e0R.jpg"
-            className="w-full h-[400px] overflow-hidden"
-          />
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide4" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide2" className="btn btn-circle">
-              ❯
-            </a>
+          <div id="slide1" className="carousel-item relative w-full h-[400px]">
+            <img
+              src="https://nordicwallart.com/cdn/shop/products/Hca0610fd385a4f4e9a540c904b13d9e0R.jpg"
+              className="w-full h-[400px] overflow-hidden"
+            />
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide4" className="btn btn-circle">
+                ❮
+              </a>
+              <a href="#slide2" className="btn btn-circle">
+                ❯
+              </a>
+            </div>
+          </div>
+          <div id="slide2" className="carousel-item relative w-full h-[400px]">
+            <img
+              src="https://www.tallengestore.com/cdn/shop/products/New_York_Skyline_-_I_a01d9df7-0f02-469c-bcac-0fe32ab72035.jpg?v=1569413855"
+              className="w-full"
+            />
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide1" className="btn btn-circle">
+                ❮
+              </a>
+              <a href="#slide3" className="btn btn-circle">
+                ❯
+              </a>
+            </div>
+          </div>
+          <div id="slide3" className="carousel-item relative w-full h-[400px]">
+            <img
+              src="https://wtm-assets-2.imgix.net/uploads/post/image/492/Copy_of_Copy_of_Untitled_Design__1_.jpg?auto=format%2Cenhance&fit=crop&crop=entropy&w=994&h=520&s=f35f8bde50bf6659a98cb45cce8f68f2"
+              className="w-full"
+            />
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide2" className="btn btn-circle">
+                ❮
+              </a>
+              <a href="#slide4" className="btn btn-circle">
+                ❯
+              </a>
+            </div>
+          </div>
+          <div id="slide4" className="carousel-item relative w-full h-[400px]">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7Cg7D1DLbaEj_b04QzuBPPbtiGvvRjbWpUQ&s"
+              className="w-full"
+            />
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide3" className="btn btn-circle">
+                ❮
+              </a>
+              <a href="#slide1" className="btn btn-circle">
+                ❯
+              </a>
+            </div>
           </div>
         </div>
-        <div id="slide2" className="carousel-item relative w-full h-[400px]">
-          <img
-            src="https://www.tallengestore.com/cdn/shop/products/New_York_Skyline_-_I_a01d9df7-0f02-469c-bcac-0fe32ab72035.jpg?v=1569413855"
-            className="w-full"
-          />
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide1" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide3" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
-        <div id="slide3" className="carousel-item relative w-full h-[400px]">
-          <img
-            src="https://wtm-assets-2.imgix.net/uploads/post/image/492/Copy_of_Copy_of_Untitled_Design__1_.jpg?auto=format%2Cenhance&fit=crop&crop=entropy&w=994&h=520&s=f35f8bde50bf6659a98cb45cce8f68f2"
-            className="w-full"
-          />
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide2" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide4" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
-        <div id="slide4" className="carousel-item relative w-full h-[400px]">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7Cg7D1DLbaEj_b04QzuBPPbtiGvvRjbWpUQ&s"
-            className="w-full"
-          />
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide3" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide1" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
-      </div>
       </header>
       <main className="w-11/12  mx-auto my-[50px] ">
         {/* card_section */}
@@ -80,9 +91,9 @@ function Home() {
             Featured <span className="text-red-800">Artworks</span>
           </h1>
           <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {
-            latestArtworks.map(artwork=> <Card key={artwork._id} artwork={artwork}/>)
-          }
+            {latestArtworks.map((artwork) => (
+              <Card key={artwork._id} artwork={artwork} />
+            ))}
           </section>
         </section>
 
@@ -134,39 +145,31 @@ function Home() {
                 alt="Drink"
               />
             </div>
+            <div className="carousel-item">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8mnG6lpu9o9j6SB_meu_4AygEBAbOm2md-Q&s"
+                alt="Drink"
+              />
+            </div>
+            <div className="carousel-item">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlvy3tdER-uFsh3MbN22bK26A-bb1SbkUd_Q&s"
+                alt="Drink"
+              />
+            </div>
           </div>
         </section>
 
         {/* show_case */}
         <section className="my-4">
           <Marquee autoFill={true} pauseOnHover={true}>
-            <LogoCard
-              imgUrl={
-                "https://img.freepik.com/free-vector/colorful-leaves-logo-template_1071-61.jpg"
-              }
-            />
-            <LogoCard
-              imgUrl={
-                "data:image/png;base64,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"
-              }
-            />
+            <LogoCard imgUrl={image1} />
+            <LogoCard imgUrl={image2} />
 
-            <LogoCard
-              imgUrl={
-                "https://t4.ftcdn.net/jpg/04/73/07/99/360_F_473079907_94eRabVj7S9nlRUYX4kYmBUQ6Brtftm3.jpg"
-              }
-            />
+            <LogoCard imgUrl={image3} />
 
-            <LogoCard
-              imgUrl={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvizx3NSfOP5swrNYiydhv04xqivOx_lFbWJ6iEjK04GSr8MM0TOREKRc&s"
-              }
-            />
-            <LogoCard
-              imgUrl={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd2EZuVJ2PLf-rmBKtGq9kL2YliB846555qA&s"
-              }
-            />
+            <LogoCard imgUrl={image4} />
+            <LogoCard imgUrl={image5} />
           </Marquee>
         </section>
 

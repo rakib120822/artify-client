@@ -30,7 +30,7 @@ function ExploreArtworks() {
               name="search"
             />
             <button className="btn join-item  bg-red-800 text-white font-bold">
-              Subscribe
+              Search
             </button>
           </div>
         </form>

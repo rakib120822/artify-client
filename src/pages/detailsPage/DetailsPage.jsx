@@ -106,7 +106,7 @@ function DetailsPage() {
 
   return (
     <div className="w-11/12 mx-auto my-[50px]">
-      <div className="card lg:card-side bg-base-100 shadow-sm">
+      <div className="card lg:card-side bg-base-100 shadow-sm border border-red-800">
         <figure className="max-w-[300px] h-[300px]">
           <img src={artWork?.image} alt="Album" />
         </figure>
@@ -164,7 +164,7 @@ function DetailsPage() {
         </div>
       </div>
 
-      <div className="card lg:card-side bg-base-100 shadow-sm my-20">
+      <div className="card lg:card-side bg-base-100 shadow-sm my-20 border border-red-800">
         <div className="card-body">
           <h2 className="card-title">{artWork?.artist_name}</h2>
           <p>Followers : {artWork?.followers}</p>
