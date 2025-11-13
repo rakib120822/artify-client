@@ -1,16 +1,51 @@
-# React + Vite
+Artify Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of Artify, an interactive art sharing platform. Users can explore artworks, manage their personal gallery, like and favorite artworks, and manage their profile. The frontend is built with React and styled using Tailwind CSS and DaisyUI.
 
-Currently, two official plugins are available:
+Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Responsive user interface with Tailwind CSS and DaisyUI
 
-## React Compiler
+Firebase authentication and profile management
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Dynamic routing with React Router
 
-## Expanding the ESLint configuration
+Artwork management: add, update, and view details
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Favorite and like system for artworks
+
+Interactive UI elements:
+
+Marquee scrolling text
+
+Tooltips with react-tooltip
+
+Notifications with React Toastify
+
+Alerts with SweetAlert2
+
+Search and filter artworks in real-time
+
+Dark/light theme toggle with persistent preference
+
+Technologies Used
+
+React – UI library
+
+Tailwind CSS – Utility-first CSS framework
+
+DaisyUI – Tailwind CSS component library
+
+Firebase – Authentication and backend integration
+
+React Router – Client-side routing
+
+React Toastify – Notifications
+
+React Tooltip – Tooltips for better UX
+
+React Fast Marquee – Scrolling marquee effects
+
+React Simple Typewriter – Typewriter text effects
+
+SweetAlert2 – Beautiful alerts and modals
