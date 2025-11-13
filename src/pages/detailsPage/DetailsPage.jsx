@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 function DetailsPage() {
   const [artWork, setArtWork] = useState();
   const [isLiked, setIsliked] = useState();
+  const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ function DetailsPage() {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetch(`https://artify-server-xi.vercel.app/artwork/${id}`, {
       headers: {
         authorization: `Bearer ${user?.accessToken}`,
@@ -81,6 +83,7 @@ function DetailsPage() {
       .then((data) => {
         setLikes(data.like);
         setArtWork(data);
+        setLoading(false);
       });
   }, [id, user]);
 
@@ -93,16 +96,27 @@ function DetailsPage() {
   }, [id, user]);
 
   useEffect(() => {
-    fetch(`https://artify-server-xi.vercel.app/user/favorite-artworks?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${user?.accessToken}`,
-      },
-    })
+    fetch(
+      `https://artify-server-xi.vercel.app/user/favorite-artworks?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${user?.accessToken}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setIsFavorite(data.some((fav) => fav.id == id));
       });
   }, [user, id]);
+
+  if (loading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <span className="loading loading-bars loading-xl text-red-800"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="w-11/12 mx-auto my-[50px]">

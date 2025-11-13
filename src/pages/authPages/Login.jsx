@@ -38,7 +38,7 @@ function Login() {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((res) => {
-        console.log(res.user);
+      
         setUser(res.user);
         Swal.fire({
           title: "Account Created!",
