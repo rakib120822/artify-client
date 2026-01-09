@@ -32,13 +32,13 @@ function Favorite() {
   }
 
   return (
-    <section className="w-11/12 mx-auto my-10">
+    <section className="px-10 my-10">
       <title>Favorite</title>
       <h1 className="text-4xl font-extrabold text-center mb-10">
         My <span className="text-red-800">Favorite</span>
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5  ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5  ">
         {favorites?.map((favorite) => (
           <Card key={favorite._id} artwork={favorite} />
         ))}

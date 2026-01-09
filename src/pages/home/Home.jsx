@@ -48,7 +48,7 @@ function Home() {
         {/* card_section */}
         <section>
           <h1 className="text-center text-4xl font-bold mb-[50px]">
-            Featured <span className="text-red-800">Artworks</span>
+            Latest <span className="text-red-800">Artworks</span>
           </h1>
           <section className="grid grid-cols-1 md:grid-cols-4 gap-5">
             {latestArtworks?.map((artwork) => (

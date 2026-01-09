@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { CiBookmarkRemove } from "react-icons/ci";
+import { CiBookmark } from "react-icons/ci";
 
 function DetailsPage() {
   const [artWork, setArtWork] = useState();
@@ -141,38 +145,18 @@ function DetailsPage() {
             >
               <span className="text-2xl">{likes}</span>
               {isLiked ? (
-                <img
-                  width="40"
-                  height="40"
-                  src="https://img.icons8.com/ios-filled/50/FA5252/filled-like.png"
-                  alt="filled-like"
-                />
+                <FaHeart color="red" size={30} />
               ) : (
-                <img
-                  width="40"
-                  height="40"
-                  src="https://img.icons8.com/ios/50/like--v1.png"
-                  alt="like--v1"
-                />
+                <FaRegHeart size={30} />
               )}
             </button>
             {isFavorite ? (
               <button onClick={handleFavoriteRemove}>
-                <img
-                  width="40"
-                  height="40"
-                  src="https://img.icons8.com/ios/50/1A1A1A/delete-forever--v1.png"
-                  alt="delete-forever--v1"
-                />
+                <CiBookmarkRemove size={30} />
               </button>
             ) : (
               <button onClick={handleFavorite}>
-                <img
-                  width="40"
-                  height="40"
-                  src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png"
-                  alt="bookmark-ribbon--v1"
-                />
+                <CiBookmark size={30} />
               </button>
             )}
           </div>

@@ -35,7 +35,7 @@ function ExploreArtworks() {
   }
 
   return (
-    <section className="w-11/12 mx-auto my-40">
+    <section className="px-10 my-10">
       <title>Explore ArtWorks</title>
       <div className="flex flex-col md:flex-row justify-between items-center mb-20">
         <h1 className="text-4xl font-extrabold mb-5 md:mb-0">
@@ -56,7 +56,7 @@ function ExploreArtworks() {
         </form>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5  ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5  ">
         {artWorks?.map((artwork) => (
           <ExploreCard key={artwork._id} artwork={artwork} />
         ))}
