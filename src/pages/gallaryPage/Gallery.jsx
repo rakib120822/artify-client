@@ -25,15 +25,15 @@ function Gallery() {
   }, [user]);
   if (loading) {
     return (
-      <div className="h-screen flex justify-center items-center">
+      <div className="h-screen  flex justify-center items-center">
         <span className="loading loading-bars loading-xl text-red-800"></span>
       </div>
     );
   }
   return (
-    <section className="w-11/12 mx-auto">
+    <section className=" p-6 bg-base-200 min-h-screen">
       <title>My Gallery</title>
-      <h1 className="text-4xl font-extrabold text-center my-10">
+      <h1 className="text-4xl font-extrabold text-center mb-10">
         My <span className="text-red-800">Gallery</span>
       </h1>
 

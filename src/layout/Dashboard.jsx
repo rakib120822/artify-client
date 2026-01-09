@@ -2,6 +2,8 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 import { GrGallery } from "react-icons/gr";
 import { FaCircleUser } from "react-icons/fa6";
+import { FaMarker } from "react-icons/fa";
+import { RiGalleryView2 } from "react-icons/ri";
 
 const Dashboard = () => {
   return (
@@ -55,7 +57,7 @@ const Dashboard = () => {
             {/* List item */}
             <li>
               <NavLink
-                to="/dashboard/landingPage"
+                to="/dashboard"
                 className={`is-drawer-close:tooltip is-drawer-close:tooltip-right ${({
                   isActive,
                 }) => (isActive ? "bg-red-800 text-white" : "")}`}
@@ -119,6 +121,34 @@ const Dashboard = () => {
                 {/* gallery icon */}
                 <GrGallery />
                 <span className="is-drawer-close:hidden">Gallery</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/dashboard/approved-artworks"}
+                className={`is-drawer-close:tooltip is-drawer-close:tooltip-right ${({
+                  isActive,
+                }) => (isActive ? "bg-red-800 text-white" : "")}`}
+                data-tip="Approved Artworks"
+              >
+                {/* gallery icon */}
+                <FaMarker />
+                <span className="is-drawer-close:hidden">
+                  Approved Artworks
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/dashboard/manage-artworks"}
+                className={`is-drawer-close:tooltip is-drawer-close:tooltip-right ${({
+                  isActive,
+                }) => (isActive ? "bg-red-800 text-white" : "")}`}
+                data-tip="Manage Artworks"
+              >
+                {/* approved artwork icon */}
+                <RiGalleryView2 />
+                <span className="is-drawer-close:hidden">Manage Artworks</span>
               </NavLink>
             </li>
           </ul>

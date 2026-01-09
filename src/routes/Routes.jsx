@@ -14,6 +14,9 @@ import UpdateProfile from "../pages/updateProfile/UpdateProfile";
 import UpdateArtWork from "../pages/updateArtwork/UpdateArtWork";
 import ContactPage from "../pages/contactPage/ContactPage";
 import Dashboard from "../layout/Dashboard";
+import ApprovedArtwork from "../pages/approved-artworkPage/ApprovedArtWorkPage";
+import Approved from "../pages/isApproved/Approved";
+import DashboardHome from "../pages/dashboardPage/DashboardLanding";
 
 const router = createBrowserRouter([
   {
@@ -76,12 +79,28 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        index: true,
+        element: <DashboardHome />,
+      },
+      {
         path: "add-artwork",
         element: <AddArtwork />,
       },
       {
         path: "my-gallery",
         element: <Gallery />,
+      },
+      {
+        path: "my-gallery",
+        element: <Gallery />,
+      },
+      {
+        path: "approved-artworks",
+        element: <ApprovedArtwork />,
+      },
+      {
+        path: "manage-artworks",
+        element: <Approved />,
       },
 
       {

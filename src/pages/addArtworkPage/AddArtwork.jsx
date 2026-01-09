@@ -49,7 +49,7 @@ function AddArtwork() {
   };
 
   return (
-    <div>
+    <div className=" p-6 bg-base-200 min-h-screen">
       <title>Explore ArtWorks</title>
       <h1 className="text-4xl font-extrabold my-5 md:mb-0 text-center ">
         Add <span className="text-red-800">ArtWorks</span>
