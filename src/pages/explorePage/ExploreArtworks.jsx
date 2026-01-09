@@ -36,6 +36,7 @@ function ExploreArtworks() {
 
   return (
     <section className="w-11/12 mx-auto my-40">
+      <title>Explore ArtWorks</title>
       <div className="flex flex-col md:flex-row justify-between items-center mb-20">
         <h1 className="text-4xl font-extrabold mb-5 md:mb-0">
           All <span className="text-red-800">ArtWorks</span>

@@ -33,6 +33,7 @@ function Favorite() {
 
   return (
     <section className="w-11/12 mx-auto my-10">
+      <title>Favorite</title>
       <h1 className="text-4xl font-extrabold text-center mb-10">
         My <span className="text-red-800">Favorite</span>
       </h1>

@@ -11,6 +11,7 @@ import image4 from "../../assets/4.png";
 import image5 from "../../assets/5.png";
 
 function Home() {
+  
   const [latestArtworks, setLatestArtworks] = useState();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -33,6 +34,7 @@ function Home() {
 
   return (
     <div>
+      <title>Home</title>
       <header>
         <h1 className="text-4xl font-extrabold text-center my-10">
           <span className="text-red-800">ART</span>IFY –{" "}

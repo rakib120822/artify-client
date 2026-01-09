@@ -56,6 +56,7 @@ function Login() {
 
   return (
     <div className="hero  min-h-screen">
+      <title>Login</title>
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-xl">
         <div className="card-body">
           <form onSubmit={handleSubmit}>

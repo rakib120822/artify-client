@@ -64,6 +64,7 @@ function UpdateArtWork() {
 
   return (
     <div>
+      <title>Update - Artwork</title>
       <div className="hero  min-h-screen my-2">
         <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-xl">
           <div className="card-body ">

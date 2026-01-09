@@ -6,7 +6,33 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
 function Navbar() {
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const { user, loading, logOut, setUser } = useAuth();
+  const navLinks = (
+    <>
+      <li className="hover:text-red-700">
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li className="hover:text-red-700">
+        <NavLink to={"/all-artworks"}>Explore Artworks</NavLink>
+      </li>
+      {user ? (
+        <>
+          <li className="hover:text-red-700">
+            <NavLink to={"/dashboard"}>Dashboard</NavLink>
+          </li>
+          <li className="hover:text-red-700">
+            <NavLink to={"/my-favorites"}>Favorites</NavLink>
+          </li>
+        </>
+      ) : (
+        ""
+      )}
+      <li className="hover:text-red-700">
+        <NavLink to={"/contact"}>Contact Us</NavLink>
+      </li>
+    </>
+  );
   const links = (
     <>
       <li className="hover:text-red-700">
@@ -14,6 +40,19 @@ function Navbar() {
       </li>
       <li className="hover:text-red-700">
         <NavLink to={"/all-artworks"}>Explore Artworks</NavLink>
+      </li>
+      <li className="hover:text-red-700">
+        <NavLink to={"/contact"}>Contact Us</NavLink>
+      </li>
+      <li>
+        <span>
+          <input
+            type="checkbox"
+            onClick={(e) => handleTheme(e.target.checked)}
+            className={`toggle mr-`}
+            checked={theme === "dark"}
+          />
+        </span>
       </li>
       {user ? (
         <>
@@ -32,8 +71,6 @@ function Navbar() {
       )}
     </>
   );
-
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
     const html = document.querySelector("html");
@@ -83,15 +120,17 @@ function Navbar() {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="flex gap-5  px-1">{links}</ul>
+        <ul className="flex gap-5  px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <input
-          type="checkbox"
-          onClick={(e) => handleTheme(e.target.checked)}
-          className="toggle mr-5"
-          checked={theme === "dark"}
-        />
+        <span className="hidden md:flex">
+          <input
+            type="checkbox"
+            onClick={(e) => handleTheme(e.target.checked)}
+            className={`toggle mr-5  `}
+            checked={theme === "dark"}
+          />
+        </span>
         {loading ? (
           <span className="loading loading-spinner loading-xl text-red-800"></span>
         ) : user ? (
@@ -107,7 +146,7 @@ function Navbar() {
             >
               <Tooltip id="my-tooltip" />
               <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+                <img alt="image" src={user?.photoURL} />
               </div>
             </div>
             <ul
@@ -126,7 +165,7 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to={"/update/profile"}
+                  to={"/dashboard/update/profile"}
                   className="justify-between hover:text-red-800  font-bold"
                 >
                   <span className="flex gap-1 items-center">

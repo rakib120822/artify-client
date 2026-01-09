@@ -12,6 +12,8 @@ import Register from "../pages/authPages/Register";
 import Login from "../pages/authPages/Login";
 import UpdateProfile from "../pages/updateProfile/UpdateProfile";
 import UpdateArtWork from "../pages/updateArtwork/UpdateArtWork";
+import ContactPage from "../pages/contactPage/ContactPage";
+import Dashboard from "../layout/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -21,32 +23,8 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        
       },
-      {
-        path: "/add-artwork",
-        element: (
-          <PrivateRoutes>
-            <AddArtwork />
-          </PrivateRoutes>
-        ),
-      },
-      {
-        path: "/update/profile",
-        element: (
-          <PrivateRoutes>
-            <UpdateProfile />
-          </PrivateRoutes>
-        ),
-      },
-      {
-        path: "/my-gallery",
-        element: (
-          <PrivateRoutes>
-            <Gallery />
-          </PrivateRoutes>
-        ),
-      },
+
       {
         path: "/update/:id",
         element: (
@@ -58,7 +36,6 @@ const router = createBrowserRouter([
       {
         path: "/all-artworks",
         element: <ExploreArtworks />,
-        
       },
       {
         path: "/my-favorites",
@@ -83,6 +60,33 @@ const router = createBrowserRouter([
       {
         path: "/auth/register",
         element: <Register />,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoutes>
+        <Dashboard />
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "add-artwork",
+        element: <AddArtwork />,
+      },
+      {
+        path: "my-gallery",
+        element: <Gallery />,
+      },
+
+      {
+        path: "update/profile",
+        element: <UpdateProfile />,
       },
     ],
   },

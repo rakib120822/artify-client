@@ -16,9 +16,12 @@ function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await fetch(`https://artify-server-xi.vercel.app/artwork/${artwork?._id}`, {
-          method: "DELETE",
-        });
+        await fetch(
+          `https://artify-server-xi.vercel.app/artwork/${artwork?._id}`,
+          {
+            method: "DELETE",
+          }
+        );
         setMyArtWorks(
           myArtWorks.filter((myArtWork) => myArtWork._id != artwork._id)
         );
@@ -31,8 +34,8 @@ function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
     });
   };
   return (
-    <div className="card bg-base-100 shadow-md  border border-[#991B1B] hover:scale-106 transition delay-300 ease-in-out">
-      <figure className="h-[300px]">
+    <div className="card bg-base-100  border border-[#991B1B] ">
+      <figure className="h-40 w-full overflow-hidden">
         <img src={artwork?.image} alt="Shoes" className="w-full h-full" />
       </figure>
       <div className="card-body">
@@ -49,13 +52,13 @@ function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
         <div className="card-actions justify-end">
           <button
             onClick={() => navigate(`/update/${artwork?._id}`)}
-            className="btn btn-outline hover:bg-red-800 hover:text-white text-red-800  font-bold"
+            className="btn btn-outline hover:btn-primary hover:text-white text-primary  font-bold"
           >
             Update
           </button>
           <button
             onClick={handleDelete}
-            className="btn btn-outline bg-red-800 text-white hover:text-red-800 hover:bg-white border border-red-800  font-bold"
+            className="btn btn-primary hover:bg-white hover:text-primary  font-bold"
           >
             Delete
           </button>

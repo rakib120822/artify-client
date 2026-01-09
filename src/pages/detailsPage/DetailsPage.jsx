@@ -120,6 +120,7 @@ function DetailsPage() {
 
   return (
     <div className="w-11/12 mx-auto my-[50px]">
+      <title>Details - Page</title>
       <div className="card lg:card-side bg-base-100 shadow-sm border border-red-800">
         <figure className="max-w-[300px] h-[300px]">
           <img src={artWork?.image} alt="Album" />

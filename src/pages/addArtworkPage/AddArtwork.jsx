@@ -36,7 +36,7 @@ function AddArtwork() {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer ${user?.accessToken}`
+          authorization: `Bearer ${user?.accessToken}`,
         },
         body: JSON.stringify(newArtWork),
       });
@@ -50,6 +50,10 @@ function AddArtwork() {
 
   return (
     <div>
+      <title>Explore ArtWorks</title>
+      <h1 className="text-4xl font-extrabold my-5 md:mb-0 text-center ">
+        Add <span className="text-red-800">ArtWorks</span>
+      </h1>
       <div className="hero  min-h-screen my-2">
         <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-xl">
           <div className="card-body ">
@@ -134,7 +138,7 @@ function AddArtwork() {
                   placeholder="Price"
                   name="price"
                 />
-                <button className="btn bg-red-800 text-white mt-4">
+                <button className="btn btn-primary  text-secondary mt-4">
                   Add My ArtWork
                 </button>
               </fieldset>
