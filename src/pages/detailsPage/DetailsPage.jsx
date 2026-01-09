@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaUserFriends } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { CiBookmarkRemove } from "react-icons/ci";
 import { CiBookmark } from "react-icons/ci";
@@ -123,27 +123,75 @@ function DetailsPage() {
   }
 
   return (
-    <div className="w-11/12 mx-auto my-[50px]">
-      <title>Details - Page</title>
-      <div className="card lg:card-side bg-base-100 shadow-sm border border-red-800">
-        <figure className="max-w-[300px] h-[300px]">
-          <img src={artWork?.image} alt="Album" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{artWork?.title}</h2>
-          <p>Artist : {artWork?.artist_name}</p>
-          <p>{artWork?.description}</p>
-          <p>Price : {artWork?.price}$</p>
-          <div className="badge badge-outline text-[#991B1B]">
-            {artWork?.medium}
+    <section className="max-w-7xl mx-auto px-6 py-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {/* Artwork Image */}
+        <div className="rounded-2xl overflow-hidden shadow-lg">
+          <img
+            src={artWork?.image}
+            alt={artWork?.title}
+            className="w-full h-[450px] object-cover"
+          />
+        </div>
+
+        {/* Artwork Info */}
+        <div className="space-y-6">
+          <h1 className="text-4xl font-bold">{artWork?.title}</h1>
+
+          {/* Artist Info */}
+          <div className="flex items-center gap-4">
+            <img
+              src={artWork?.artist_image}
+              alt={artWork?.artist_name}
+              className="w-14 h-14 rounded-full object-cover"
+            />
+            <div>
+              <p className="font-semibold text-lg">{artWork?.artist_name}</p>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <FaUserFriends />
+                <span>{artWork?.followers} followers</span>
+              </div>
+            </div>
           </div>
 
-          <div className="card-actions justify-end">
+          {/* Meta Info */}
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <p>
+              <span className="font-semibold">Category:</span>{" "}
+              {artWork?.category}
+            </p>
+            <p>
+              <span className="font-semibold">Medium:</span> {artWork?.medium}
+            </p>
+            <p>
+              <span className="font-semibold">Created:</span>{" "}
+              {new Date(artWork?.created_at).toDateString()}
+            </p>
+            <p>
+              <span className="font-semibold">Visibility:</span>{" "}
+              {artWork?.visibility}
+            </p>
+          </div>
+
+          {/* Likes & Price */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-red-500">
+              <FaHeart />
+              <span className="font-semibold">{artWork?.like} Likes</span>
+            </div>
+            <p className="text-3xl font-bold text-primary">${artWork?.price}</p>
+          </div>
+
+          {/* Description */}
+          <p className="text-gray-600 leading-relaxed">
+            {artWork?.description}
+          </p>
+          {/* Action Buttons */}
+          <div className="flex gap-4 pt-4">
             <button
               onClick={() => handleLiked()}
               className="flex items-center gap-2"
             >
-              <span className="text-2xl">{likes}</span>
               {isLiked ? (
                 <FaHeart color="red" size={30} />
               ) : (
@@ -162,17 +210,7 @@ function DetailsPage() {
           </div>
         </div>
       </div>
-
-      <div className="card lg:card-side bg-base-100 shadow-sm my-20 border border-red-800">
-        <div className="card-body">
-          <h2 className="card-title">{artWork?.artist_name}</h2>
-          <p>Followers : {artWork?.followers}</p>
-        </div>
-        <figure className="max-w-[300px] h-[300px]">
-          <img src={artWork?.artist_image} alt="Album" />
-        </figure>
-      </div>
-    </div>
+    </section>
   );
 }
 
