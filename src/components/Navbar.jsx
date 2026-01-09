@@ -31,6 +31,9 @@ function Navbar() {
       <li className="hover:text-red-700">
         <NavLink to={"/contact"}>Contact Us</NavLink>
       </li>
+      <li className="hover:text-red-700">
+        <NavLink to={"/about"}>About Us</NavLink>
+      </li>
     </>
   );
   const links = (
@@ -43,6 +46,9 @@ function Navbar() {
       </li>
       <li className="hover:text-red-700">
         <NavLink to={"/contact"}>Contact Us</NavLink>
+      </li>
+      <li className="hover:text-red-700">
+        <NavLink to={"/about"}>About Us</NavLink>
       </li>
       <li>
         <span>
@@ -88,7 +94,7 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm px-5">
+    <div className="navbar bg-base-100 shadow-sm px-10 sticky top-0 z-100 dropdown-blur">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

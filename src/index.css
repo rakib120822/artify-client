@@ -9,11 +9,11 @@
   --color-primary: #b91c1c;
   --color-secondary: #fff;
 }
-/* @plugin 'daisyui/theme' {
+@plugin 'daisyui/theme' {
   name: "dark";
-  --color-primary: ;
+  --color-primary: #b91c1c;
   --color-secondary: teal;
-} */
+}
 
 a.active {
   color: #b91c1c;

@@ -17,6 +17,7 @@ import Dashboard from "../layout/Dashboard";
 import ApprovedArtwork from "../pages/approved-artworkPage/ApprovedArtWorkPage";
 import Approved from "../pages/isApproved/Approved";
 import DashboardHome from "../pages/dashboardPage/DashboardLanding";
+import AboutUs from "../pages/aboutPage/AboutPage";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactPage />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
       },
     ],
   },

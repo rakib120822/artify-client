@@ -1,19 +1,26 @@
-import React from "react";
+import { FaSquareXTwitter } from "react-icons/fa6";
 import { Link } from "react-router";
 
 function Footer() {
   return (
     <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
       <nav className="grid grid-flow-col gap-4">
-        <Link className="link link-hover">About us</Link>
-        <Link className="link link-hover">Contact</Link>
-        <Link className="link link-hover">Help Center</Link>
-        
+        <Link to={"/about"} className="link link-hover">
+          About us
+        </Link>
+        <Link to={"/contact"} className="link link-hover">
+          Contact
+        </Link>
+        <Link to={"/contact"} className="link link-hover">
+          Help Center
+        </Link>
       </nav>
       <nav>
         <div className="grid grid-flow-col gap-4">
-          <Link>
-            <img width="24" height="24" src="https://img.icons8.com/ios-filled/50/twitterx--v1.png" alt="twitterx--v1"/>
+          <Link className="flex items-center">
+            <span className="flex items-center">
+              <FaSquareXTwitter size={22} />
+            </span>
           </Link>
           <Link>
             <svg
