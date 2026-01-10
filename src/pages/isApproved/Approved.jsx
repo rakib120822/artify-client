@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const ArtworkApproval = () => {
   const { user } = useAuth();
   const [artworks, setArtworks] = useState([]);
-  const [loading, setLoading] = useState(false);
+
   const handleApprove = (id) => {
     // 🔗 API call -> PATCH /artworks/approve/:id
     fetch(
@@ -61,7 +61,6 @@ const ArtworkApproval = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
     fetch(
       `https://artify-server-xi.vercel.app/pending-artworks?email=${user?.email}`,
       {
@@ -74,7 +73,6 @@ const ArtworkApproval = () => {
       .then((res) => res.json())
       .then((data) => {
         setArtworks(data);
-        setLoading(false);
       });
   }, [user, artworks]);
 
