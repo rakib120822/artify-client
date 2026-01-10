@@ -52,11 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: (
-          <PrivateRoutes>
-            <DetailsPage />
-          </PrivateRoutes>
-        ),
+        element: <DetailsPage />,
       },
       {
         path: "/auth/login",

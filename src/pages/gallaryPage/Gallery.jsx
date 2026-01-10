@@ -4,22 +4,19 @@ import useAuth from "../../hooks/useAuth";
 
 function Gallery() {
   const { user } = useAuth();
-  const [myArtWorks, setMyArtWorks] = useState();
+  const [myArtWorks, setMyArtWorks] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `https://artify-server-xi.vercel.app/my-artworks?email=${user?.email}`,
-      {
-        headers: {
-          authorization: `Bearer ${user?.accessToken}`,
-        },
-      }
-    )
+    fetch(`https://artify-server-xi.vercel.app/my-artworks?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setMyArtWorks(data);
+        setMyArtWorks(data.data);
         setLoading(false);
       });
   }, [user]);
