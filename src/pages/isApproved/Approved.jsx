@@ -11,7 +11,7 @@ const ArtworkApproval = () => {
   const handleApprove = (id) => {
     // 🔗 API call -> PATCH /artworks/approve/:id
     fetch(
-      `https://artify-server-xi.vercel.app/approve/${id}?status=approved&email=${user?.email}`,
+      `https://artify-server-xi.vercel.app/artworks/approve/${id}?status=approved&email=${user?.email}`,
       {
         method: "PATCH",
         headers: {
@@ -97,58 +97,44 @@ const ArtworkApproval = () => {
 
           {/* Table Body */}
           <tbody>
-            {loading ? (
-              <>
-                <div className="flex w-52 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
+            {artworks?.map((art, index) => (
+              <tr key={art._id}>
+                <td>{index + 1}</td>
+
+                <td>
+                  <div className="avatar">
+                    <div className="w-16 rounded">
+                      <img src={art.image} alt={art.title} />
                     </div>
                   </div>
-                </div>
-              </>
-            ) : (
-              artworks?.map((art, index) => (
-                <tr key={art._id}>
-                  <td>{index + 1}</td>
+                </td>
 
-                  <td>
-                    <div className="avatar">
-                      <div className="w-16 rounded">
-                        <img src={art.image} alt={art.title} />
-                      </div>
-                    </div>
-                  </td>
+                <td>{art.title}</td>
+                <td>{art.artist_name}</td>
 
-                  <td>{art.title}</td>
-                  <td>{art.artist_name}</td>
+                <td>
+                  <span className="badge badge-warning">
+                    {art.adminApproval}
+                  </span>
+                </td>
 
-                  <td>
-                    <span className="badge badge-warning">
-                      {art.adminApproval}
-                    </span>
-                  </td>
+                <td className="text-center space-x-2">
+                  <button
+                    onClick={() => handleApprove(art._id)}
+                    className="btn btn-sm btn-success"
+                  >
+                    <FaCheck />
+                  </button>
 
-                  <td className="text-center space-x-2">
-                    <button
-                      onClick={() => handleApprove(art._id)}
-                      className="btn btn-sm btn-success"
-                    >
-                      <FaCheck />
-                    </button>
-
-                    <button
-                      onClick={() => handleReject(art._id)}
-                      className="btn btn-sm btn-error"
-                    >
-                      <FaTimes />
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
+                  <button
+                    onClick={() => handleReject(art._id)}
+                    className="btn btn-sm btn-error"
+                  >
+                    <FaTimes />
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
