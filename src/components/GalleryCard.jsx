@@ -2,9 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router";
 
 import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
 
 function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -17,9 +19,13 @@ function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await fetch(
-          `https://artify-server-xi.vercel.app/artwork/${artwork?._id}`,
+          `https://localhost:3000/artwork/${artwork?._id}?email=${artwork?.artist_email}`,
           {
             method: "DELETE",
+            headers: {
+              "content-type": "application/json",
+              authorization: `Bearer ${user?.accessToken}`,
+            },
           }
         );
         setMyArtWorks(
@@ -46,8 +52,14 @@ function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
           {artwork?.title}
         </h2>
         <p>Artist : {artwork?.artist_name}</p>
-        <div className="badge badge-outline text-[#991B1B]">
-          {artwork?.category}
+        <div
+          className={`badge badge-outline ${
+            artwork?.adminApproval === "approved"
+              ? "badge-success"
+              : "badge-warning"
+          }`}
+        >
+          {artwork?.adminApproval}
         </div>
         <div className="card-actions justify-end">
           <button

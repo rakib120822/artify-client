@@ -18,6 +18,7 @@ import ApprovedArtwork from "../pages/approved-artworkPage/ApprovedArtWorkPage";
 import Approved from "../pages/isApproved/Approved";
 import DashboardHome from "../pages/dashboardPage/DashboardLanding";
 import AboutUs from "../pages/aboutPage/AboutPage";
+import AdminRoutes from "../pages/privateroutes/AdminRoutes";
 
 const router = createBrowserRouter([
   {
@@ -105,7 +106,11 @@ const router = createBrowserRouter([
       },
       {
         path: "manage-artworks",
-        element: <Approved />,
+        element: (
+          <AdminRoutes>
+            <Approved />
+          </AdminRoutes>
+        ),
       },
 
       {

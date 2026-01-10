@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   FaPalette,
   FaClock,
@@ -18,35 +19,60 @@ import {
   YAxis,
   ResponsiveContainer,
 } from "recharts";
+import useAuth from "../../hooks/useAuth";
+import { useState } from "react";
 
 const DashboardHome = () => {
-  // stats (replace with API data later)
-  const stats = {
-    totalArtworks: 128,
-    pending: 12,
-    approved: 96,
-    rejected: 20,
-    favorites: 34,
-  };
+  const { user } = useAuth();
+  const [artworks, setArtworks] = useState(0);
+  const [pending, setPending] = useState(0);
+  const [approved, setApproved] = useState(0);
+  const [rejected, setRejected] = useState(0);
+  const [favorites, setFavorites] = useState(0);
 
   // Pie chart data for status distribution
   const pieData = [
-    { name: "Approved", value: stats.approved },
-    { name: "Pending", value: stats.pending },
-    { name: "Rejected", value: stats.rejected },
+    { name: "Approved", value: approved },
+    { name: "Pending", value: pending },
+    { name: "Rejected", value: rejected },
   ];
 
   const COLORS = ["#16a34a", "#facc15", "#dc2626"]; // green, yellow, red
 
   // Bar chart data for overview
   const barData = [
-    { name: "Total", count: stats.totalArtworks },
-    { name: "Pending", count: stats.pending },
-    { name: "Approved", count: stats.approved },
-    { name: "Rejected", count: stats.rejected },
-    { name: "Favorites", count: stats.favorites },
+    { name: "Total", count: artworks },
+    { name: "Pending", count: pending },
+    { name: "Approved", count: approved },
+    { name: "Rejected", count: rejected },
+    { name: "Favorites", count: favorites },
   ];
 
+  useEffect(() => {
+    fetch(`http://localhost:3000/my-artworks?email=${user?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setArtworks(data.totalArtworks);
+        setPending(data.pending);
+        setApproved(data.approved);
+        setRejected(data.rejected);
+        setFavorites(data.favorites);
+      });
+  }, [user]);
+
+  console.log("this is form dashboard  : ", {
+    artworks,
+    pending,
+    approved,
+    rejected,
+    favorites,
+  });
   return (
     <div className="p-6 bg-base-200 min-h-screen">
       {/* Header */}
@@ -67,7 +93,7 @@ const DashboardHome = () => {
             </div>
             <div>
               <p className="text-sm text-base-content/70">Total Artworks</p>
-              <h2 className="text-3xl font-bold">{stats.totalArtworks}</h2>
+              <h2 className="text-3xl font-bold">{artworks}</h2>
             </div>
           </div>
         </div>
@@ -80,7 +106,7 @@ const DashboardHome = () => {
             </div>
             <div>
               <p className="text-sm text-base-content/70">Pending</p>
-              <h2 className="text-3xl font-bold">{stats.pending}</h2>
+              <h2 className="text-3xl font-bold">{pending}</h2>
             </div>
           </div>
         </div>
@@ -93,7 +119,7 @@ const DashboardHome = () => {
             </div>
             <div>
               <p className="text-sm text-base-content/70">Approved</p>
-              <h2 className="text-3xl font-bold">{stats.approved}</h2>
+              <h2 className="text-3xl font-bold">{approved}</h2>
             </div>
           </div>
         </div>
@@ -106,7 +132,7 @@ const DashboardHome = () => {
             </div>
             <div>
               <p className="text-sm text-base-content/70">Rejected</p>
-              <h2 className="text-3xl font-bold">{stats.rejected}</h2>
+              <h2 className="text-3xl font-bold">{rejected}</h2>
             </div>
           </div>
         </div>
@@ -119,7 +145,7 @@ const DashboardHome = () => {
             </div>
             <div>
               <p className="text-sm text-base-content/70">Favorites</p>
-              <h2 className="text-3xl font-bold">{stats.favorites}</h2>
+              <h2 className="text-3xl font-bold">{favorites}</h2>
             </div>
           </div>
         </div>

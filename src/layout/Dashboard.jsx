@@ -4,8 +4,25 @@ import { GrGallery } from "react-icons/gr";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaMarker } from "react-icons/fa";
 import { RiGalleryView2 } from "react-icons/ri";
+import useAuth from "../hooks/useAuth";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+  const { user } = useAuth();
+  const [userInfo, setUserInfo] = useState();
+  useEffect(() => {
+    fetch(`http://localhost:3000/users?email=${user?.email}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUserInfo(data);
+      });
+  }, [user]);
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -138,19 +155,25 @@ const Dashboard = () => {
                 </span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to={"/dashboard/manage-artworks"}
-                className={`is-drawer-close:tooltip is-drawer-close:tooltip-right ${({
-                  isActive,
-                }) => (isActive ? "bg-red-800 text-white" : "")}`}
-                data-tip="Manage Artworks"
-              >
-                {/* approved artwork icon */}
-                <RiGalleryView2 />
-                <span className="is-drawer-close:hidden">Manage Artworks</span>
-              </NavLink>
-            </li>
+            {userInfo?.role === "admin" ? (
+              <li>
+                <NavLink
+                  to={"/dashboard/manage-artworks"}
+                  className={`is-drawer-close:tooltip is-drawer-close:tooltip-right ${({
+                    isActive,
+                  }) => (isActive ? "bg-red-800 text-white" : "")}`}
+                  data-tip="Manage Artworks"
+                >
+                  {/* approved artwork icon */}
+                  <RiGalleryView2 />
+                  <span className="is-drawer-close:hidden">
+                    Manage Artworks
+                  </span>
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
       </div>

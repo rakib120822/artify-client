@@ -10,11 +10,25 @@ function UpdateProfile() {
     const name = e.target.name.value;
     const photoURL = e.target.photoURL.value;
     setLoading(true);
+
     updateInfo(name, photoURL)
       .then(() => {
         setUser({ ...user, displayName: name, photoURL: photoURL });
-        toast.success("update successful! ");
-        setLoading(false);
+        fetch(`http://localhost:3000/user?email=${user?.email}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user?.accessToken}`,
+          },
+          body: JSON.stringify({ displayName: name, photoURL: photoURL }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId || data.modifiedCount > 0) {
+              toast.success("update successful! ");
+              setLoading(false);
+            }
+          });
       })
       .catch((err) => {
         toast.error(err.message);
@@ -53,12 +67,18 @@ function UpdateProfile() {
               />
             </div>
             {/* Profile Image */}
-            <input
-              type="file"
-              accept="image/*"
-              className="file-input file-input-bordered file-input-sm w-full"
-              name="photoURL"
-            />
+            <div>
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                className="input input-bordered w-full"
+                defaultValue={user?.photoURL}
+                name="photoURL"
+              />
+            </div>
 
             {/* Button */}
             <button className="btn btn-primary w-full">Update Profile</button>

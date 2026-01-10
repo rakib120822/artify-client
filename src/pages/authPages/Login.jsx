@@ -38,13 +38,24 @@ function Login() {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((res) => {
-      
+        fetch(`http://localhost:3000/users`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(res.user),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              Swal.fire({
+                title: "Account Created!",
+                icon: "success",
+                draggable: true,
+              });
+            }
+          });
         setUser(res.user);
-        Swal.fire({
-          title: "Account Created!",
-          icon: "success",
-          draggable: true,
-        });
         setLoading(false);
         navigate(location?.state || "/");
       })

@@ -28,7 +28,7 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
+    const displayName = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const photoUrl = e.target.photoUrl.value;
@@ -37,15 +37,28 @@ function Register() {
       return toast.error(verficationPassword);
     }
 
+    const userInfo = { displayName, email, photoUrl };
     register(email, password)
       .then((res) => {
         setUser(res.user);
-        updateInfo(name, photoUrl).then(() => {
-          Swal.fire({
-            title: "Account Created!",
-            icon: "success",
-            draggable: true,
-          });
+        updateInfo(displayName, photoUrl).then(() => {
+          fetch(`http://localhost:3000/users`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(userInfo),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                Swal.fire({
+                  title: "Account Created!",
+                  icon: "success",
+                  draggable: true,
+                });
+              }
+            });
         });
 
         setLoading(false);
@@ -61,11 +74,23 @@ function Register() {
     googleLogin()
       .then((res) => {
         setUser(res.user);
-        Swal.fire({
-          title: "Account Created!",
-          icon: "success",
-          draggable: true,
-        });
+        fetch(`http://localhost:3000/users`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(res.user),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              Swal.fire({
+                title: "Account Created!",
+                icon: "success",
+                draggable: true,
+              });
+            }
+          });
         setLoading(false);
         navigate(location?.state || "/");
       })

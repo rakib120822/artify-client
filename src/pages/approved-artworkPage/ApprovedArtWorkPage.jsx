@@ -1,23 +1,25 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
-const approvedArtworks = [
-  {
-    id: 1,
-    title: "Sunset Dreams",
-    artist: "John Doe",
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-    approvedDate: "2026-01-02",
-  },
-  {
-    id: 2,
-    title: "Abstract Waves",
-    artist: "Jane Smith",
-    image: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
-    approvedDate: "2026-01-05",
-  },
-];
+import useAuth from "../../hooks/useAuth";
 
 const ApprovedArtwork = () => {
+  const [approvedArtworks, setApprovedArtworks] = useState([]);
+  const { user } = useAuth();
+  useEffect(() => {
+    fetch(`http://localhost:3000/approved-artworks?email=${user?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setApprovedArtworks(data)
+      });
+  }, [user]);
   return (
     <div className="p-6 bg-base-200 min-h-screen">
       {/* Header */}

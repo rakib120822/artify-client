@@ -66,9 +66,6 @@ function Navbar() {
             <NavLink to={"/add-artwork"}>Add Artwork</NavLink>
           </li>
           <li className="hover:text-red-700">
-            <NavLink to={"/my-gallery"}>My Gallery</NavLink>
-          </li>
-          <li className="hover:text-red-700">
             <NavLink to={"/my-favorites"}>My Favorites</NavLink>
           </li>
         </>
@@ -83,6 +80,8 @@ function Navbar() {
     html.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+
 
   const handleLogOut = () => {
     logOut().then(() => toast.success("Log Out successful"));

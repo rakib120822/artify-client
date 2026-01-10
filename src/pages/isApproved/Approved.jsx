@@ -1,32 +1,79 @@
+import { useEffect } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-
-const artworks = [
-  {
-    id: 1,
-    title: "Sunset Dreams",
-    artist: "John Doe",
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-    status: "pending",
-  },
-  {
-    id: 2,
-    title: "Abstract Waves",
-    artist: "Jane Smith",
-    image: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
-    status: "pending",
-  },
-];
+import useAuth from "../../hooks/useAuth";
+import { useState } from "react";
+import Swal from "sweetalert2";
 
 const ArtworkApproval = () => {
+  const { user } = useAuth();
+  const [artworks, setArtworks] = useState([]);
   const handleApprove = (id) => {
     console.log("Approved artwork id:", id);
     // 🔗 API call -> PATCH /artworks/approve/:id
+    fetch(
+      `http://localhost:3000/artworks/approve/${id}?status=approved&email=${user?.email}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${user?.accessToken}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        // Optionally, refresh the artwork list or update state here
+        if (data.acknowledged) {
+          setArtworks(artworks.filter((art) => art._id !== id));
+          Swal.fire({
+            title: "Approved!",
+            icon: "success",
+            draggable: true,
+          });
+        }
+      });
   };
 
   const handleReject = (id) => {
     console.log("Rejected artwork id:", id);
     // 🔗 API call -> PATCH /artworks/reject/:id
+    fetch(
+      `http://localhost:3000/artworks/approve/${id}?status=rejected&email=${user?.email}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${user?.accessToken}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          setArtworks(artworks.filter((art) => art._id !== id));
+          Swal.fire({
+            title: "Rejected!",
+            icon: "success",
+            draggable: true,
+          });
+        }
+        // Optionally, refresh the artwork list or update state here
+      });
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/pending-artworks?email=${user?.email}`, {
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("manage artworks : ", data);
+        setArtworks(data);
+      });
+  }, [user, artworks]);
 
   return (
     <div className="p-6 bg-base-200 min-h-screen">
@@ -49,8 +96,8 @@ const ArtworkApproval = () => {
 
           {/* Table Body */}
           <tbody>
-            {artworks.map((art, index) => (
-              <tr key={art.id}>
+            {artworks?.map((art, index) => (
+              <tr key={art._id}>
                 <td>{index + 1}</td>
 
                 <td>
@@ -62,22 +109,24 @@ const ArtworkApproval = () => {
                 </td>
 
                 <td>{art.title}</td>
-                <td>{art.artist}</td>
+                <td>{art.artist_name}</td>
 
                 <td>
-                  <span className="badge badge-warning">{art.status}</span>
+                  <span className="badge badge-warning">
+                    {art.adminApproval}
+                  </span>
                 </td>
 
                 <td className="text-center space-x-2">
                   <button
-                    onClick={() => handleApprove(art.id)}
+                    onClick={() => handleApprove(art._id)}
                     className="btn btn-sm btn-success"
                   >
                     <FaCheck />
                   </button>
 
                   <button
-                    onClick={() => handleReject(art.id)}
+                    onClick={() => handleReject(art._id)}
                     className="btn btn-sm btn-error"
                   >
                     <FaTimes />

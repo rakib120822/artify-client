@@ -32,7 +32,7 @@ function AddArtwork() {
     };
 
     try {
-      await fetch("https://artify-server-xi.vercel.app/artworks", {
+      const resPromise = await fetch("http://localhost:3000/artworks", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -40,9 +40,12 @@ function AddArtwork() {
         },
         body: JSON.stringify(newArtWork),
       });
+      const data = await resPromise.json();
+      if (data.insertedId) {
+        toast.success("Added new artwork!");
+      }
 
-      toast.success("Added new artwork!");
-      navigate("/my-gallery");
+      navigate("/dashboard/my-gallery");
     } catch (err) {
       toast.error(err.message);
     }
