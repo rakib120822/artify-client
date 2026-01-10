@@ -66,13 +66,7 @@ const DashboardHome = () => {
       });
   }, [user]);
 
-  console.log("this is form dashboard  : ", {
-    artworks,
-    pending,
-    approved,
-    rejected,
-    favorites,
-  });
+
   return (
     <div className="p-6 bg-base-200 min-h-screen">
       {/* Header */}

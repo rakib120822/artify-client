@@ -8,7 +8,7 @@ const ArtworkApproval = () => {
   const { user } = useAuth();
   const [artworks, setArtworks] = useState([]);
   const handleApprove = (id) => {
-    console.log("Approved artwork id:", id);
+  
     // 🔗 API call -> PATCH /artworks/approve/:id
     fetch(
       `https://artify-server-xi.vercel.app/approve/${id}?status=approved&email=${user?.email}`,
@@ -35,7 +35,7 @@ const ArtworkApproval = () => {
   };
 
   const handleReject = (id) => {
-    console.log("Rejected artwork id:", id);
+
     // 🔗 API call -> PATCH /artworks/reject/:id
     fetch(
       `https://artify-server-xi.vercel.app/artworks/approve/${id}?status=rejected&email=${user?.email}`,
@@ -70,7 +70,7 @@ const ArtworkApproval = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("manage artworks : ", data);
+
         setArtworks(data);
       });
   }, [user, artworks]);

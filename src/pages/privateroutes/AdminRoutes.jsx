@@ -16,7 +16,6 @@ const AdminRoutes = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("admin route user data :", data);
         setUserInfo(data);
       });
   }, [user]);
@@ -29,7 +28,7 @@ const AdminRoutes = ({ children }) => {
     return <p>Loading...</p>;
   }
 
-  return <>{ children }</>;
+  return <>{children}</>;
 };
 
 export default AdminRoutes;
