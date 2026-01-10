@@ -42,7 +42,7 @@ function Register() {
       .then((res) => {
         setUser(res.user);
         updateInfo(displayName, photoUrl).then(() => {
-          fetch(`http://localhost:3000/users`, {
+          fetch(`https://artify-server-xi.vercel.app/users`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -74,7 +74,7 @@ function Register() {
     googleLogin()
       .then((res) => {
         setUser(res.user);
-        fetch(`http://localhost:3000/users`, {
+        fetch(`https://artify-server-xi.vercel.app/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",

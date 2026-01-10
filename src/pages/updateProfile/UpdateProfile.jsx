@@ -14,7 +14,7 @@ function UpdateProfile() {
     updateInfo(name, photoURL)
       .then(() => {
         setUser({ ...user, displayName: name, photoURL: photoURL });
-        fetch(`http://localhost:3000/user?email=${user?.email}`, {
+        fetch(`https://artify-server-xi.vercel.app/user?email=${user?.email}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

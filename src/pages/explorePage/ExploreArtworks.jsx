@@ -22,7 +22,7 @@ function ExploreArtworks() {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:3000/artworks?limit=${limit}&page=${
+      `https://artify-server-xi.vercel.app/artworks?limit=${limit}&page=${
         currentPage * limit
       }`
     )

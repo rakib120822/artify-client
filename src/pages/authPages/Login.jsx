@@ -38,7 +38,7 @@ function Login() {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((res) => {
-        fetch(`http://localhost:3000/users`, {
+        fetch(`https://artify-server-xi.vercel.app/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",

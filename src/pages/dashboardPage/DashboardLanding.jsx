@@ -49,7 +49,7 @@ const DashboardHome = () => {
   ];
 
   useEffect(() => {
-    fetch(`http://localhost:3000/my-artworks?email=${user?.email}`, {
+    fetch(`https://artify-server-xi.vercel.app/my-artworks?email=${user?.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

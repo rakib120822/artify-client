@@ -19,7 +19,7 @@ function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await fetch(
-          `https://localhost:3000/artwork/${artwork?._id}?email=${artwork?.artist_email}`,
+          `https://artify-server-xi.vercel.app/artwork/${artwork?._id}?email=${artwork?.artist_email}`,
           {
             method: "DELETE",
             headers: {
@@ -56,7 +56,9 @@ function GalleryCard({ artwork, setMyArtWorks, myArtWorks }) {
           className={`badge badge-outline ${
             artwork?.adminApproval === "approved"
               ? "badge-success"
-              : "badge-warning"
+              : artwork?.adminApproval === "pending"
+              ? "badge-warning"
+              : "badge-error"
           }`}
         >
           {artwork?.adminApproval}

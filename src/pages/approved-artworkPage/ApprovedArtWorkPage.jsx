@@ -8,7 +8,7 @@ const ApprovedArtwork = () => {
   const [approvedArtworks, setApprovedArtworks] = useState([]);
   const { user } = useAuth();
   useEffect(() => {
-    fetch(`http://localhost:3000/approved-artworks?email=${user?.email}`, {
+    fetch(`https://artify-server-xi.vercel.app/approved-artworks?email=${user?.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

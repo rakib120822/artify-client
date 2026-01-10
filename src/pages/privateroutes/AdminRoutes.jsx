@@ -8,7 +8,7 @@ const AdminRoutes = ({ children }) => {
   const { user, loading } = useAuth();
   const [userInfo, setUserInfo] = useState();
   useEffect(() => {
-    fetch(`http://localhost:3000/users?email=${user?.email}`, {
+    fetch(`https://artify-server-xi.vercel.app/users?email=${user?.email}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${user?.accessToken}`,

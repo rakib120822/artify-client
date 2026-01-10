@@ -11,7 +11,7 @@ const ArtworkApproval = () => {
     console.log("Approved artwork id:", id);
     // 🔗 API call -> PATCH /artworks/approve/:id
     fetch(
-      `http://localhost:3000/artworks/approve/${id}?status=approved&email=${user?.email}`,
+      `https://artify-server-xi.vercel.app/approve/${id}?status=approved&email=${user?.email}`,
       {
         method: "PATCH",
         headers: {
@@ -38,7 +38,7 @@ const ArtworkApproval = () => {
     console.log("Rejected artwork id:", id);
     // 🔗 API call -> PATCH /artworks/reject/:id
     fetch(
-      `http://localhost:3000/artworks/approve/${id}?status=rejected&email=${user?.email}`,
+      `https://artify-server-xi.vercel.app/artworks/approve/${id}?status=rejected&email=${user?.email}`,
       {
         method: "PATCH",
         headers: {
@@ -62,7 +62,7 @@ const ArtworkApproval = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/pending-artworks?email=${user?.email}`, {
+    fetch(`https://artify-server-xi.vercel.app/pending-artworks?email=${user?.email}`, {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${user?.accessToken}`,
