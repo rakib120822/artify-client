@@ -7,8 +7,8 @@ import Swal from "sweetalert2";
 const ArtworkApproval = () => {
   const { user } = useAuth();
   const [artworks, setArtworks] = useState([]);
+  const [loading, setLoading] = useState(false);
   const handleApprove = (id) => {
-  
     // 🔗 API call -> PATCH /artworks/approve/:id
     fetch(
       `https://artify-server-xi.vercel.app/approve/${id}?status=approved&email=${user?.email}`,
@@ -35,7 +35,6 @@ const ArtworkApproval = () => {
   };
 
   const handleReject = (id) => {
-
     // 🔗 API call -> PATCH /artworks/reject/:id
     fetch(
       `https://artify-server-xi.vercel.app/artworks/approve/${id}?status=rejected&email=${user?.email}`,
@@ -62,16 +61,20 @@ const ArtworkApproval = () => {
   };
 
   useEffect(() => {
-    fetch(`https://artify-server-xi.vercel.app/pending-artworks?email=${user?.email}`, {
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${user?.accessToken}`,
-      },
-    })
+    setLoading(true);
+    fetch(
+      `https://artify-server-xi.vercel.app/pending-artworks?email=${user?.email}`,
+      {
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${user?.accessToken}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
-
         setArtworks(data);
+        setLoading(false);
       });
   }, [user, artworks]);
 
@@ -96,44 +99,58 @@ const ArtworkApproval = () => {
 
           {/* Table Body */}
           <tbody>
-            {artworks?.map((art, index) => (
-              <tr key={art._id}>
-                <td>{index + 1}</td>
-
-                <td>
-                  <div className="avatar">
-                    <div className="w-16 rounded">
-                      <img src={art.image} alt={art.title} />
+            {loading ? (
+              <>
+                <div className="flex w-52 flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                    <div className="flex flex-col gap-4">
+                      <div className="skeleton h-4 w-20"></div>
+                      <div className="skeleton h-4 w-28"></div>
                     </div>
                   </div>
-                </td>
+                </div>
+              </>
+            ) : (
+              artworks?.map((art, index) => (
+                <tr key={art._id}>
+                  <td>{index + 1}</td>
 
-                <td>{art.title}</td>
-                <td>{art.artist_name}</td>
+                  <td>
+                    <div className="avatar">
+                      <div className="w-16 rounded">
+                        <img src={art.image} alt={art.title} />
+                      </div>
+                    </div>
+                  </td>
 
-                <td>
-                  <span className="badge badge-warning">
-                    {art.adminApproval}
-                  </span>
-                </td>
+                  <td>{art.title}</td>
+                  <td>{art.artist_name}</td>
 
-                <td className="text-center space-x-2">
-                  <button
-                    onClick={() => handleApprove(art._id)}
-                    className="btn btn-sm btn-success"
-                  >
-                    <FaCheck />
-                  </button>
+                  <td>
+                    <span className="badge badge-warning">
+                      {art.adminApproval}
+                    </span>
+                  </td>
 
-                  <button
-                    onClick={() => handleReject(art._id)}
-                    className="btn btn-sm btn-error"
-                  >
-                    <FaTimes />
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  <td className="text-center space-x-2">
+                    <button
+                      onClick={() => handleApprove(art._id)}
+                      className="btn btn-sm btn-success"
+                    >
+                      <FaCheck />
+                    </button>
+
+                    <button
+                      onClick={() => handleReject(art._id)}
+                      className="btn btn-sm btn-error"
+                    >
+                      <FaTimes />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

@@ -32,14 +32,6 @@ function Home() {
       });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="h-screen flex justify-center items-center">
-        <span className="loading loading-bars loading-xl text-red-800"></span>
-      </div>
-    );
-  }
-
   return (
     <div className="px-10">
       <title>Home</title>
@@ -51,9 +43,38 @@ function Home() {
             Latest <span className="text-red-800">Artworks</span>
           </h1>
           <section className="grid grid-cols-1 md:grid-cols-4 gap-5">
-            {latestArtworks?.map((artwork) => (
-              <Card key={artwork._id} artwork={artwork} />
-            ))}
+            {loading ? (
+              <>
+                <div className="flex w-52 flex-col gap-4">
+                  <div className="skeleton h-32 w-full"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                </div>
+                <div className="flex w-52 flex-col gap-4">
+                  <div className="skeleton h-32 w-full"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                </div>
+                <div className="flex w-52 flex-col gap-4">
+                  <div className="skeleton h-32 w-full"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                </div>
+                <div className="flex w-52 flex-col gap-4">
+                  <div className="skeleton h-32 w-full"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                </div>
+              </>
+            ) : (
+              latestArtworks?.map((artwork) => (
+                <Card key={artwork._id} artwork={artwork} />
+              ))
+            )}
           </section>
         </section>
 

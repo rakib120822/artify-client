@@ -1,4 +1,3 @@
-import React from "react";
 const blogs = [
   {
     title: "Top 10 Digital Art Trends in 2026",

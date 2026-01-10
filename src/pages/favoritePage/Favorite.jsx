@@ -23,14 +23,6 @@ function Favorite() {
       });
   }, [user, setFavorites]);
 
-  if (loading) {
-    return (
-      <div className="h-screen flex justify-center items-center">
-        <span className="loading loading-bars loading-xl text-red-800"></span>
-      </div>
-    );
-  }
-
   return (
     <section className="px-10 my-10">
       <title>Favorite</title>
@@ -39,9 +31,38 @@ function Favorite() {
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5  ">
-        {favorites?.map((favorite) => (
-          <Card key={favorite._id} artwork={favorite} />
-        ))}
+        {loading ? (
+          <>
+            <div className="flex w-52 flex-col gap-4">
+              <div className="skeleton h-32 w-full"></div>
+              <div className="skeleton h-4 w-28"></div>
+              <div className="skeleton h-4 w-full"></div>
+              <div className="skeleton h-4 w-full"></div>
+            </div>
+            <div className="flex w-52 flex-col gap-4">
+              <div className="skeleton h-32 w-full"></div>
+              <div className="skeleton h-4 w-28"></div>
+              <div className="skeleton h-4 w-full"></div>
+              <div className="skeleton h-4 w-full"></div>
+            </div>
+            <div className="flex w-52 flex-col gap-4">
+              <div className="skeleton h-32 w-full"></div>
+              <div className="skeleton h-4 w-28"></div>
+              <div className="skeleton h-4 w-full"></div>
+              <div className="skeleton h-4 w-full"></div>
+            </div>
+            <div className="flex w-52 flex-col gap-4">
+              <div className="skeleton h-32 w-full"></div>
+              <div className="skeleton h-4 w-28"></div>
+              <div className="skeleton h-4 w-full"></div>
+              <div className="skeleton h-4 w-full"></div>
+            </div>
+          </>
+        ) : (
+          favorites?.map((favorite) => (
+            <Card key={favorite._id} artwork={favorite} />
+          ))
+        )}
       </div>
     </section>
   );
