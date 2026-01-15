@@ -101,7 +101,7 @@ function DetailsPage() {
         setArtWork(data);
         setLoading(false);
       });
-  }, [id, user]);
+  }, [id, user, setIsliked, setIsFavorite]);
 
   if (loading) {
     return (
@@ -110,6 +110,8 @@ function DetailsPage() {
       </div>
     );
   }
+
+  console.log("this from details page : ", likes);
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12">
@@ -166,7 +168,7 @@ function DetailsPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-red-500">
               <FaHeart />
-              <span className="font-semibold">{artWork?.like} Likes</span>
+              <span className="font-semibold">{likes} Likes</span>
             </div>
             <p className="text-3xl font-bold text-primary">${artWork?.price}</p>
           </div>
