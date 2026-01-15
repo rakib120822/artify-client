@@ -94,7 +94,7 @@ function DetailsPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/artwork/${id}`)
+    fetch(`https://artify-server-xi.vercel.app/artwork/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setLikes(data.like);
@@ -102,29 +102,6 @@ function DetailsPage() {
         setLoading(false);
       });
   }, [id, user]);
-
-  useEffect(() => {
-    fetch(`https://artify-server-xi.vercel.app/user/likes?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setIsliked(data[0].likes.includes(id));
-      });
-  }, [id, user]);
-
-  useEffect(() => {
-    fetch(
-      `https://artify-server-xi.vercel.app/user/favorite-artworks?email=${user?.email}`,
-      {
-        headers: {
-          authorization: `Bearer ${user?.accessToken}`,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setIsFavorite(data.some((fav) => fav.id == id));
-      });
-  }, [user, id]);
 
   if (loading) {
     return (
