@@ -19,6 +19,12 @@ function DetailsPage() {
   const [isFavorite, setIsFavorite] = useState();
 
   const handleLiked = async () => {
+    if (!user) {
+      toast.error("You need to login first to like the artwork");
+      navigate("/auth/login");
+      return;
+    }
+
     const result = await fetch(
       `https://artify-server-xi.vercel.app/artwork/like/${id}?email=${user?.email}`,
       {
@@ -41,6 +47,11 @@ function DetailsPage() {
   };
 
   const handleFavorite = async () => {
+    if (!user) {
+      toast.error("You need to login first to like the artwork");
+      navigate("/auth/login");
+      return;
+    }
     const result = await fetch(
       `https://artify-server-xi.vercel.app/favorite/${artWork?._id}?email=${user?.email}`,
       {
@@ -59,6 +70,11 @@ function DetailsPage() {
   };
 
   const handleFavoriteRemove = async () => {
+    if (!user) {
+      toast.error("You need to login first to like the artwork");
+      navigate("/auth/login");
+      return;
+    }
     const result = await fetch(
       `https://artify-server-xi.vercel.app/favorite/${artWork?._id}?email=${user?.email}`,
       {
@@ -78,11 +94,7 @@ function DetailsPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://artify-server-xi.vercel.app/artwork/${id}`, {
-      headers: {
-        authorization: `Bearer ${user?.accessToken}`,
-      },
-    })
+    fetch(`http://localhost:3000/artwork/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setLikes(data.like);
