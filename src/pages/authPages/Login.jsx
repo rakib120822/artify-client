@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import CopyAdminCredentials from "../../components/AdminCredintialBtn";
 
 function Login() {
   const { login, setUser, setLoading, googleLogin } = useAuth();
@@ -109,6 +110,8 @@ function Login() {
               </button>
             </fieldset>
           </form>
+          <div className="divider">OR</div>
+          <CopyAdminCredentials />
           <div className="divider">OR</div>
           {/* Google */}
           <button
